@@ -222,6 +222,21 @@
 
     {% render 'microdata-schema' %}
 
+  <script>
+    // Force EUR currency — persist across navigations
+    (function() {
+      var cookieName = 'cart_currency';
+      if (document.cookie.indexOf(cookieName + '=EUR') === -1) {
+        document.cookie = cookieName + '=EUR;path=/;max-age=31536000;SameSite=Lax';
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('currency') !== 'EUR') {
+          params.set('currency', 'EUR');
+          window.location.search = params.toString();
+        }
+      }
+    })();
+  </script>
+
 </head>
 
   <body class="prestige--v4 {% if template.directory %}template-{{ template.directory | handle }}{% endif %} template-{{ template.name | handle }}">
