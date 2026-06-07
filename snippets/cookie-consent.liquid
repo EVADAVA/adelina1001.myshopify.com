@@ -164,20 +164,10 @@
   };
   modal.addEventListener('click', function (e) { if (e.target === modal) hide(modal); });
 
-  // Global hook for "Cookie settings" footer/element links:
-  // Usage: <button/class data-cookie-prefs>Cookie settings</button>
+  // Global hook for "Cookie settings" footer link:
+  // <a href="#" onclick="event.preventDefault(); window.adelinaOpenCookiePrefs()">Cookie settings</a>
   window.adelinaOpenCookiePrefs = function () { syncToggles(); hide(banner); show(modal); };
 
-  document.addEventListener('DOMContentLoaded', function () {
-    init();
-
-    var prefEls = document.querySelectorAll('[data-cookie-prefs]');
-    prefEls.forEach(function (el) {
-      el.addEventListener('click', function (e) {
-        e.preventDefault();
-        window.adelinaOpenCookiePrefs && window.adelinaOpenCookiePrefs();
-      });
-    });
-  });
+  document.addEventListener('DOMContentLoaded', init);
 })();
 </script>

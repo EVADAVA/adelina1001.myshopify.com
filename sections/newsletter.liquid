@@ -40,7 +40,7 @@
 
         {%- assign newsletter_id = 'footer-' | append: section.id -%}
 
-        {%- form 'customer', id: newsletter_id, class: 'Newsletter Form', action: routes.root_url -%}
+        {%- form 'customer', id: newsletter_id, class: 'Newsletter Form' -%}
           {%- if form.posted_successfully? -%}
             <p class="Form__Alert Alert Alert--success">{{ 'home_page.newsletter.success' | t }}</p>
           {%- else -%}
