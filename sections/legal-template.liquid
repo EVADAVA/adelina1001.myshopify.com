@@ -1,0 +1,120 @@
+{%- comment -%}
+  Legal page template with language tabs (EN / DE / IT / FR).
+  Content sources:
+    EN  → page.content  (standard Shopify page body)
+    DE  → page.metafields.legal.body_de  (html metafield)
+    IT  → page.metafields.legal.body_it  (html metafield)
+    FR  → page.metafields.legal.body_fr  (html metafield)
+  Tabs are only shown when the corresponding content exists.
+{%- endcomment -%}
+
+{%- assign has_de = page.metafields.legal.body_de.value -%}
+{%- assign has_it = page.metafields.legal.body_it.value -%}
+{%- assign has_fr = page.metafields.legal.body_fr.value -%}
+
+<style>
+  .LegalPage { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+  .LegalPage__Title { font-size: 28px; margin-bottom: 28px; }
+
+  .LegalTabs__Nav {
+    display: flex; gap: 2px; margin-bottom: 32px;
+    border-bottom: 1px solid #e0dce0;
+  }
+  .LegalTabs__Btn {
+    padding: 8px 18px; font-size: 13px; letter-spacing: .04em;
+    border: none; background: none; cursor: pointer;
+    color: #888; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: color .15s, border-color .15s;
+  }
+  .LegalTabs__Btn.is-active { color: #4a3542; border-bottom-color: #4a3542; }
+  .LegalTabs__Btn:hover:not(.is-active) { color: #4a3542; }
+
+  .LegalTabs__Panel { display: none; }
+  .LegalTabs__Panel.is-active { display: block; }
+  .LegalTabs__Panel h2 { font-size: 17px; margin: 24px 0 8px; }
+  .LegalTabs__Panel h3 { font-size: 15px; margin: 20px 0 6px; }
+  .LegalTabs__Panel p  { margin-bottom: 12px; line-height: 1.7; }
+  .LegalTabs__Panel a  { color: #4a3542; text-decoration: underline; }
+</style>
+
+<div class="LegalPage">
+  <h1 class="LegalPage__Title">{{ page.title }}</h1>
+
+  <div class="LegalTabs" data-legal-tabs>
+
+    <nav class="LegalTabs__Nav" role="tablist" aria-label="Language">
+      <button class="LegalTabs__Btn is-active"
+              role="tab" aria-selected="true"
+              data-lang="en">English</button>
+
+      {%- if has_de -%}
+        <button class="LegalTabs__Btn"
+                role="tab" aria-selected="false"
+                data-lang="de">Deutsch</button>
+      {%- endif -%}
+
+      {%- if has_it -%}
+        <button class="LegalTabs__Btn"
+                role="tab" aria-selected="false"
+                data-lang="it">Italiano</button>
+      {%- endif -%}
+
+      {%- if has_fr -%}
+        <button class="LegalTabs__Btn"
+                role="tab" aria-selected="false"
+                data-lang="fr">Français</button>
+      {%- endif -%}
+    </nav>
+
+    <div class="LegalTabs__Panel is-active" role="tabpanel" data-lang="en">
+      {{ page.content }}
+    </div>
+
+    {%- if has_de -%}
+      <div class="LegalTabs__Panel" role="tabpanel" data-lang="de">
+        {{ page.metafields.legal.body_de.value }}
+      </div>
+    {%- endif -%}
+
+    {%- if has_it -%}
+      <div class="LegalTabs__Panel" role="tabpanel" data-lang="it">
+        {{ page.metafields.legal.body_it.value }}
+      </div>
+    {%- endif -%}
+
+    {%- if has_fr -%}
+      <div class="LegalTabs__Panel" role="tabpanel" data-lang="fr">
+        {{ page.metafields.legal.body_fr.value }}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var container = document.querySelector('[data-legal-tabs]');
+  if (!container) return;
+
+  container.addEventListener('click', function (e) {
+    var btn = e.target.closest('.LegalTabs__Btn');
+    if (!btn) return;
+    var lang = btn.dataset.lang;
+
+    container.querySelectorAll('.LegalTabs__Btn').forEach(function (b) {
+      b.classList.toggle('is-active', b.dataset.lang === lang);
+      b.setAttribute('aria-selected', b.dataset.lang === lang ? 'true' : 'false');
+    });
+    container.querySelectorAll('.LegalTabs__Panel').forEach(function (p) {
+      p.classList.toggle('is-active', p.dataset.lang === lang);
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Legal Page",
+  "settings": []
+}
+{% endschema %}

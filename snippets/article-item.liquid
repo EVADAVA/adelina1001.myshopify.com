@@ -1,0 +1,38 @@
+<article class="ArticleItem" {% if block %}{{ block.shopify_attributes }}{% endif %}>
+  {%- if article.image != blank -%}
+    {%- capture supported_sizes -%}{%- render 'image-size', sizes: '200,400,600,700,800,900,1000,1200', image: article.image -%}{%- endcapture -%}
+    {%- assign image_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    {%- assign aspect_ratio = section.settings.blog_aspect_ratio | default: 1.7 -%}
+
+    <div class="ArticleItem__ImageWrapper AspectRatio AspectRatio--withFallback" style="background-color: #f5f5f5; padding-bottom: {{ 100 | divided_by: aspect_ratio }}%; --aspect-ratio: {{ aspect_ratio }}">
+      <img class="ArticleItem__Image Image--lazyLoad Image--fadeIn"
+           data-src="{{ image_url }}"
+           data-widths="[{{ supported_sizes }}]"
+           data-sizes="auto"
+           width="{{ article.image.width }}"
+           height="{{ article.image.height }}"
+           alt="{{ article.image.alt | escape }}">
+
+      <noscript>
+        <img class="ArticleItem__Image" src="{{ article.image | img_url: '600x' }}" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}">
+      </noscript>
+    </div>
+  {%- endif -%}
+
+  <div class="ArticleItem__Content">
+    {%- if section.settings.show_category and article.tags.first != blank -%}
+      <span class="ArticleItem__Category Heading u-h6 Text--subdued">{{ article.tags.first }}</span>
+    {%- endif -%}
+
+    <h2 class="ArticleItem__Title Heading u-h2">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h2>
+
+    {%- unless template.name == 'article' -%}
+      <p class="ArticleItem__Excerpt">{{ article.excerpt_or_content | strip_html | truncate: 150 }}</p>
+      <a href="{{ article.url }}" class="ArticleItem__Link Link Link--underline" aria-label="{{ 'blog.article.read_more' | t }}: {{ article.title | escape }}">
+        {{- 'blog.article.read_more' | t -}}
+      </a>
+    {%- endunless -%}
+  </div>
+</article>

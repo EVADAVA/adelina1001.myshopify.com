@@ -1,0 +1,836 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "heading_color": "#353535",
+    "text_color": "#414141",
+    "text_light_color": "#686868",
+    "link_color": "#323232",
+    "background": "#ffffff",
+    "light_background": "#cfc1d2",
+    "product_on_sale_color": "#f94c43",
+    "button_background": "#9f85a6",
+    "button_text_color": "#ffffff",
+    "header_background": "#ffffff",
+    "header_heading_color": "#5c5c5c",
+    "header_light_color": "#939393",
+    "footer_background": "#afcac2",
+    "footer_heading_color": "#ffffff",
+    "footer_text_color": "#1c1b1b",
+    "navigation_background": "#4a3542",
+    "navigation_text_color": "#ffffff",
+    "newsletter_popup_background": "#ffffff",
+    "newsletter_popup_text_color": "#1c1b1b",
+    "secondary_elements_background": "#4a3542",
+    "secondary_elements_text_color": "#ffffff",
+    "heading_font": "din_neuzeit_grotesk_n3",
+    "heading_size": "small",
+    "uppercase_heading": true,
+    "text_font": "futura_n4",
+    "base_text_font_size": 14,
+    "currency_conversion_enabled": false,
+    "currency_conversion_round_amounts": true,
+    "currency_conversion_supported_currencies": "EUR USD CAD GBP RUB INR",
+    "currency_conversion_money_format": "money_with_currency_format",
+    "show_page_transition": true,
+    "show_button_transition": true,
+    "show_image_zooming": true,
+    "show_element_staggering": true,
+    "search_mode": "product,page",
+    "product_show_price_on_hover": false,
+    "product_show_secondary_image": true,
+    "product_info_alignment": "center",
+    "product_image_size": "tall",
+    "product_list_horizontal_spacing": "large",
+    "product_list_vertical_spacing": "small",
+    "cart_type": "drawer",
+    "cart_enable_notes": true,
+    "cart_show_free_shipping_threshold": false,
+    "cart_free_shipping_threshold": "150",
+    "share_image": "shopify://shop_images/MAIN_PHOTO.jpg",
+    "social_facebook": "https://www.facebook.com/adelinaworld",
+    "social_twitter": "",
+    "social_pinterest": "https://www.pinterest.ru/aamlinskaya/_created/",
+    "social_instagram": "https://www.instagram.com/adelinawanderworld/",
+    "social_vimeo": "",
+    "social_tumblr": "",
+    "social_youtube": "https://www.youtube.com/channel/UCXgfRhH6KeKGMzSbW__ERWA",
+    "social_linkedin": "https://www.linkedin.com/company/adelina-luminous-jewellery",
+    "social_snapchat": "",
+    "social_fancy": "",
+    "favicon": "shopify://shop_images/Logo_ADELINA1001_copy_2.png",
+    "checkout_header_image": "",
+    "checkout_logo_image": "shopify://shop_images/b219ee563c0008abaedac45565d87551.png",
+    "checkout_logo_position": "center",
+    "checkout_logo_size": "large",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#e6e6e6",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#000000",
+    "checkout_heading_font": "Lato",
+    "checkout_body_font": "Lato",
+    "checkout_accent_color": "#000000",
+    "checkout_button_color": "#000000",
+    "checkout_error_color": "#e32c2b",
+    "sections": {
+      "sidebar-menu": {
+        "type": "sidebar-menu",
+        "settings": {
+          "primary_menu": "main-menu",
+          "secondary_menu": "main-menu",
+          "show_social_media": true
+        }
+      },
+      "announcement": {
+        "type": "announcement",
+        "settings": {
+          "enable_bar": false,
+          "home_page_only": false,
+          "background": "#ffffff",
+          "text_color": "#1c1b1b",
+          "content": "All orders will be dispatched immediately after COVID-19 limitations expire",
+          "link": ""
+        }
+      },
+      "header": {
+        "type": "header",
+        "blocks": {
+          "1606374876075": {
+            "type": "mega_menu",
+            "settings": {
+              "navigation_mega_menu": "",
+              "push_1_heading": "Example heading",
+              "push_1_subheading": "Example sub-heading",
+              "push_1_url": "",
+              "push_2_heading": "Example heading",
+              "push_2_subheading": "Example sub-heading",
+              "push_2_url": ""
+            }
+          }
+        },
+        "block_order": [
+          "1606374876075"
+        ],
+        "settings": {
+          "use_sticky_header": true,
+          "logo": "shopify://shop_images/b219ee563c0008abaedac45565d87551.png",
+          "logo_max_width": 155,
+          "mobile_logo_max_width": 80,
+          "navigation_menu": "",
+          "navigation_style": "inline",
+          "show_icons": true,
+          "enable_transparent_header": true,
+          "enable_transparent_header_collection": true,
+          "show_transparent_header_border": true,
+          "transparent_text_color": "#ffffff",
+          "transparent_logo": "shopify://shop_images/808b730a181abf2df2833d378f7204eb.png"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "3b247d1d-5357-4f77-950a-8cc881b5c1cc": {
+            "type": "links",
+            "settings": {
+              "menu": ""
+            }
+          },
+          "footer-1": {
+            "type": "links",
+            "settings": {
+              "menu": "footer"
+            }
+          },
+          "footer-2": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Welcome to the Club",
+              "content": "<p>Get 10% off your next purchase.</p>"
+            }
+          },
+          "9d3bd56a-5236-4faf-a017-c7a66759eca1": {
+            "type": "text",
+            "settings": {
+              "title": "follow us",
+              "content": "<p></p><p></p>",
+              "show_social_media": true
+            }
+          }
+        },
+        "block_order": [
+          "3b247d1d-5357-4f77-950a-8cc881b5c1cc",
+          "footer-1",
+          "footer-2",
+          "9d3bd56a-5236-4faf-a017-c7a66759eca1"
+        ],
+        "settings": {
+          "show_payment_methods": false
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "show_collection_info": true,
+          "show_collection_image": true,
+          "apply_overlay": true,
+          "show_color_swatch": true,
+          "show_vendor": false,
+          "collection_image_size": "large",
+          "show_sort_by": true,
+          "show_layout_switch": true,
+          "toolbar_position": "top",
+          "filter_position": "sidebar",
+          "filter_mode": "hidden",
+          "show_filter_color_swatch": false,
+          "filter_menu": "",
+          "grid_items_per_page": 48,
+          "grid_mobile_items_per_row": "2",
+          "grid_desktop_items_per_row": 4
+        }
+      },
+      "recently-viewed-products": {
+        "type": "recently-viewed-products",
+        "settings": {
+          "show_section": true,
+          "title": "YOU HAVE RECENTLY VIEWED",
+          "show_product_info": true,
+          "show_vendor": false,
+          "show_color_swatch": false
+        }
+      },
+      "collection-footer": {
+        "type": "collection-footer",
+        "settings": {
+          "show_section": false,
+          "text_color": "#ffffff",
+          "apply_overlay": true,
+          "title": "Our story",
+          "content": "<p>Add your own custom content to explain your processes...</p>"
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "show_share_buttons": true,
+          "show_vendor": true,
+          "show_sku": false,
+          "description_below_add_to_cart": true,
+          "selector_mode": "block",
+          "show_color_swatch": false,
+          "show_color_carousel": false,
+          "show_quantity_selector": true,
+          "show_inventory_quantity": false,
+          "inventory_quantity_threshold": 3,
+          "show_price_in_button": false,
+          "show_payment_button": true,
+          "image_size": "medium",
+          "stack_images": true,
+          "show_thumbnails": true,
+          "enable_image_zoom": true,
+          "tab_page_1_handle": "returns-refunds-mm",
+          "tab_page_2_handle": "shipping-mm",
+          "reviews_enabled": false,
+          "featured_image_size": "large"
+        }
+      },
+      "product-recommendations": {
+        "type": "product-recommendations",
+        "settings": {
+          "show_product_recommendations": true,
+          "heading": "PEOPLE ALSO BOUGHT",
+          "show_product_info": true,
+          "show_vendor": false,
+          "show_color_swatch": false
+        }
+      },
+      "popup": {
+        "type": "popup",
+        "settings": {
+          "show_popup": false,
+          "show_only_on_index": true,
+          "show_only_for_visitors": true,
+          "show_only_once": true,
+          "title": "join us",
+          "content": "<p>adelina.world </p>",
+          "show_newsletter": true,
+          "apparition_delay": 4
+        }
+      },
+      "list-collections-template": {
+        "type": "list-collections-template",
+        "blocks": {
+          "1575459891789": {
+            "type": "collection",
+            "settings": {
+              "collection": "base-necklaces",
+              "image": "",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "",
+              "button_text": ""
+            }
+          },
+          "1575460041403": {
+            "type": "collection",
+            "settings": {
+              "collection": "tassels",
+              "image": "shopify://shop_images/464ef844b06e8ac1a84746c3ef41c16b.jpg",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "",
+              "button_text": ""
+            }
+          },
+          "1575460042996": {
+            "type": "collection",
+            "settings": {
+              "collection": "pompons",
+              "image": "shopify://shop_images/3_ad4e80bd-8da2-4761-8460-6213084c77d4.jpg",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "",
+              "button_text": ""
+            }
+          },
+          "1575460044698": {
+            "type": "collection",
+            "settings": {
+              "collection": "sharms",
+              "image": "",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "",
+              "button_text": ""
+            }
+          },
+          "1585458968510": {
+            "type": "collection",
+            "settings": {
+              "collection": "ribbons",
+              "image": "",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "Ribbons",
+              "button_text": ""
+            }
+          }
+        },
+        "block_order": [
+          "1575459891789",
+          "1575460041403",
+          "1575460042996",
+          "1575460044698",
+          "1585458968510"
+        ],
+        "settings": {
+          "collections_to_show": "selected",
+          "image_size": "small",
+          "add_spacing": true,
+          "expand_collection": false,
+          "apply_overlay": true,
+          "text_color": "#ffffff",
+          "button_color": "#363636"
+        }
+      },
+      "page-contact-template": {
+        "type": "page-contact-template",
+        "blocks": {
+          "1576721393651": {
+            "type": "text",
+            "settings": {
+              "title": "Phone Number",
+              "use_long_text": false,
+              "is_required": true
+            }
+          },
+          "1576721418317": {
+            "type": "text",
+            "settings": {
+              "title": "Country",
+              "use_long_text": false,
+              "is_required": true
+            }
+          },
+          "1576721426118": {
+            "type": "text",
+            "settings": {
+              "title": "City",
+              "use_long_text": false,
+              "is_required": true
+            }
+          }
+        },
+        "block_order": [
+          "1576721393651",
+          "1576721418317",
+          "1576721426118"
+        ],
+        "settings": {}
+      },
+      "1575766459381": {
+        "type": "text-with-image",
+        "settings": {
+          "subheading": "",
+          "title": "Create your own style with individual interchangeable elements providing an infinite variety of looks.... ...To suit your mood or your fancy.",
+          "image": "shopify://shop_images/10_85ca6c3e-15fc-413c-a4bf-41eb4a189e03.jpg",
+          "image_position": "right",
+          "content": "",
+          "link_text": "",
+          "link_url": ""
+        }
+      },
+      "1576022810447": {
+        "type": "slideshow",
+        "blocks": {
+          "c39b8ed4-822d-486b-91da-7da8f736c815": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/01_7ac3c130-55c6-455d-86bd-7dfdf72e48e7.jpg",
+              "mobile_image": "shopify://shop_images/mob02.jpg",
+              "apply_overlay": true,
+              "content_position": "middleLeft",
+              "subheading": "Made by a woman for women",
+              "title": "with love and admiration",
+              "button_1_text": "SHOP NOW",
+              "button_1_link": "shopify://collections/kits",
+              "button_2_text": "",
+              "button_2_link": "shopify://collections/black-architecture"
+            }
+          },
+          "11b38396-d47f-49da-8374-7cacc059cb1a": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/001_4a0d27b6-4229-4774-851c-fff1d5a8d258.jpg",
+              "mobile_image": "shopify://shop_images/mob01.jpg",
+              "apply_overlay": true,
+              "content_position": "middleLeft",
+              "subheading": "Create your",
+              "title": "own style",
+              "button_1_text": "SHOP NOW",
+              "button_1_link": "shopify://collections/queen-earrings",
+              "button_2_text": "",
+              "button_2_link": ""
+            }
+          },
+          "79acae9c-46f8-4ac9-87a9-2c0397c00a1b": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/02_60867b6d-4b82-462d-9202-b8cbdbfbd7ac.jpg",
+              "mobile_image": "shopify://shop_images/mob03.jpg",
+              "apply_overlay": true,
+              "content_position": "middleLeft",
+              "subheading": "Celebrate your",
+              "title": "uniqueness",
+              "button_1_text": "SHOP NOW",
+              "button_1_link": "shopify://collections/flowers",
+              "button_2_text": "",
+              "button_2_link": "shopify://collections/flowers"
+            }
+          },
+          "1585465492156": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/0004.jpg",
+              "mobile_image": "shopify://shop_images/mob041.jpg",
+              "apply_overlay": true,
+              "content_position": "middleRight",
+              "subheading": "Be yourself,",
+              "title": "be different!",
+              "button_1_text": "SHOP NOW",
+              "button_1_link": "shopify://collections/kits",
+              "button_2_text": "",
+              "button_2_link": ""
+            }
+          }
+        },
+        "block_order": [
+          "c39b8ed4-822d-486b-91da-7da8f736c815",
+          "11b38396-d47f-49da-8374-7cacc059cb1a",
+          "79acae9c-46f8-4ac9-87a9-2c0397c00a1b",
+          "1585465492156"
+        ],
+        "settings": {
+          "show_fullscreen": true,
+          "show_arrow": false,
+          "autoplay": true,
+          "cycle_speed": 5,
+          "text_color": "#ffffff",
+          "button_color": "#ffffff",
+          "button_background": "#000000"
+        }
+      },
+      "page-investor-relations": {
+        "type": "page-investor-relations",
+        "blocks": {
+          "1576247421402": {
+            "type": "text",
+            "settings": {
+              "title": "First Name",
+              "use_long_text": false,
+              "is_required": true
+            }
+          },
+          "1576247429804": {
+            "type": "text",
+            "settings": {
+              "title": "Last Name",
+              "use_long_text": false,
+              "is_required": true
+            }
+          },
+          "1576247457724": {
+            "type": "text",
+            "settings": {
+              "title": "Email",
+              "use_long_text": false,
+              "is_required": true
+            }
+          },
+          "1576247470157": {
+            "type": "text",
+            "settings": {
+              "title": "Phone Number",
+              "use_long_text": false,
+              "is_required": true
+            }
+          },
+          "1576247477908": {
+            "type": "text",
+            "settings": {
+              "title": "Country",
+              "use_long_text": false,
+              "is_required": true
+            }
+          },
+          "1576247483161": {
+            "type": "text",
+            "settings": {
+              "title": "City",
+              "use_long_text": false,
+              "is_required": true
+            }
+          }
+        },
+        "block_order": [
+          "1576247421402",
+          "1576247429804",
+          "1576247457724",
+          "1576247470157",
+          "1576247477908",
+          "1576247483161"
+        ],
+        "settings": {}
+      },
+      "product-template-2": {
+        "type": "product-template-2",
+        "settings": {
+          "show_share_buttons": true,
+          "show_vendor": false,
+          "show_sku": false,
+          "description_below_add_to_cart": true,
+          "selector_mode": "block",
+          "show_color_swatch": true,
+          "show_color_carousel": true,
+          "show_quantity_selector": true,
+          "show_inventory_quantity": false,
+          "inventory_quantity_threshold": 0,
+          "show_price_in_button": true,
+          "show_payment_button": true,
+          "image_size": "small",
+          "stack_images": true,
+          "show_thumbnails": true,
+          "enable_image_zoom": true,
+          "tab_page_1_handle": "returns-refunds-kits",
+          "tab_page_2_handle": "shipping-kits",
+          "reviews_enabled": true,
+          "featured_image_size": "large"
+        }
+      },
+      "background-video": {
+        "type": "background-video",
+        "settings": {
+          "section_size": "small",
+          "video_url": "https://youtu.be/BmuTN1kJ-lE"
+        }
+      },
+      "featured-video": {
+        "type": "featured-video",
+        "settings": {
+          "section_size": "small",
+          "text_color": "#ffffff",
+          "subheading": "",
+          "title": "",
+          "image": "shopify://shop_images/main_Lina.jpg",
+          "video_url": "https://www.youtube.com/watch?v=BmuTN1kJ-lE"
+        }
+      },
+      "cart-template": {
+        "type": "cart-template",
+        "settings": {
+          "show_shipping_estimator": false,
+          "shipping_estimator_default_country": "United States"
+        }
+      },
+      "1581083321157": {
+        "type": "background-video",
+        "settings": {
+          "section_size": "large",
+          "video_url": "https://youtu.be/6zg9RNwMA2A"
+        }
+      },
+      "1585006685353": {
+        "type": "featured-collections",
+        "blocks": {
+          "1585459913288": {
+            "type": "collection",
+            "settings": {
+              "collection": "rings",
+              "title": "",
+              "grid_items_count": 23,
+              "button_text": "View all products"
+            }
+          },
+          "1585006685353-0": {
+            "type": "collection",
+            "settings": {
+              "collection": "earrings",
+              "title": "Earrings",
+              "grid_items_count": 38,
+              "button_text": "View all products"
+            }
+          }
+        },
+        "block_order": [
+          "1585459913288",
+          "1585006685353-0"
+        ],
+        "settings": {
+          "title": "OUR OTHER PRODUCTS",
+          "layout_mode": "carousel",
+          "show_product_info": true,
+          "show_vendor": false,
+          "show_color_swatch": true,
+          "grid_mobile_items_per_row": "2",
+          "grid_desktop_items_per_row": 4
+        }
+      },
+      "16462344080c855b44": {
+        "type": "collection-list",
+        "blocks": {
+          "16462344080c855b44-0": {
+            "type": "collection",
+            "settings": {
+              "collection": "flowers",
+              "image": "shopify://shop_images/DW1A6959-smoll.jpg",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "Flower Collection",
+              "button_text": "View products",
+              "button_link": "",
+              "apply_overlay": true
+            }
+          },
+          "16462344080c855b44-1": {
+            "type": "collection",
+            "settings": {
+              "collection": "submarine",
+              "image": "shopify://shop_images/DW1A7327_smoll.jpg",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "Submarine Collection",
+              "button_text": "View products",
+              "button_link": "",
+              "apply_overlay": true
+            }
+          },
+          "16462344080c855b44-2": {
+            "type": "collection",
+            "settings": {
+              "collection": "kits",
+              "image": "shopify://shop_images/7.jpg",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "Sunrise 360",
+              "button_text": "View products",
+              "button_link": "",
+              "apply_overlay": true
+            }
+          },
+          "0bd9e43c-2135-44bf-bb89-5d283d34d621": {
+            "type": "collection",
+            "settings": {
+              "collection": "black-architecture",
+              "image": "shopify://shop_images/3V4A2959-4.jpg",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "black architecture",
+              "button_text": "View products",
+              "button_link": "shopify://collections/black-architecture",
+              "apply_overlay": true
+            }
+          },
+          "b87d2ff9-cbe4-4ae6-9a80-89abd52e5617": {
+            "type": "collection",
+            "settings": {
+              "collection": "white-architecture-collection",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "WHITE ARCHITECTURE",
+              "button_text": "View products",
+              "button_link": "shopify://collections/white-architecture-collection",
+              "apply_overlay": true
+            }
+          },
+          "7c1ffc07-2e91-4082-a5c7-6a4db900da46": {
+            "type": "collection",
+            "settings": {
+              "collection": "black-flower",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "BLACK FLOWER",
+              "button_text": "View products",
+              "button_link": "shopify://collections/black-flower",
+              "apply_overlay": true
+            }
+          }
+        },
+        "block_order": [
+          "16462344080c855b44-0",
+          "16462344080c855b44-1",
+          "16462344080c855b44-2",
+          "0bd9e43c-2135-44bf-bb89-5d283d34d621",
+          "b87d2ff9-cbe4-4ae6-9a80-89abd52e5617",
+          "7c1ffc07-2e91-4082-a5c7-6a4db900da46"
+        ],
+        "settings": {
+          "image_size": "normal",
+          "add_spacing": true,
+          "expand_collection": false,
+          "stack_on_mobile": true,
+          "text_color": "#ffffff",
+          "button_color": "#000000"
+        }
+      },
+      "16601618581e0ba2a3": {
+        "type": "custom-html",
+        "settings": {
+          "subheading": "",
+          "title": "",
+          "html": "<h2 style=\"font-size:30px; padding:-40px; margin:-20px; \"> BESTSELLERS </h2>"
+        }
+      },
+      "1660401849ad3c5e0d": {
+        "type": "collection-list",
+        "blocks": {
+          "1660401849ad3c5e0d-0": {
+            "type": "collection",
+            "settings": {
+              "collection": "",
+              "image": "shopify://shop_images/JAIPUR_DREAMS_SQUARE_SILVER_RING.png",
+              "image_alignment": "top left",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "JAIPUR DREAMS SQUARE SILVER RING",
+              "button_text": "View product",
+              "button_link": "shopify://products/jaipur-dreams-square-ring",
+              "apply_overlay": true
+            }
+          },
+          "1660401849ad3c5e0d-1": {
+            "type": "collection",
+            "settings": {
+              "collection": "",
+              "image": "shopify://shop_images/SET_3_MID-DAY.png",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "SET 3 (MID-DAY)",
+              "button_text": "View product",
+              "button_link": "shopify://products/set-3-mid-day",
+              "apply_overlay": true
+            }
+          },
+          "1660401849ad3c5e0d-2": {
+            "type": "collection",
+            "settings": {
+              "collection": "",
+              "image": "shopify://shop_images/LIGHT_BLUE_QUEEN_EARRINGS.png",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "LIGHT BLUE QUEEN EARRINGS",
+              "button_text": "View product",
+              "button_link": "shopify://products/light-blue-queen-earrings",
+              "apply_overlay": true
+            }
+          },
+          "fb58d29c-17a3-4b99-a662-72a6b8313632": {
+            "type": "collection",
+            "settings": {
+              "collection": "",
+              "image": "shopify://shop_images/GREEN_ONYX_DOUBLE_BLACK_RING.png",
+              "image_alignment": "center center",
+              "content_position": "bottomLeft",
+              "subheading": "",
+              "title": "GREEN ONYX DOUBLE BLACK RING",
+              "button_text": "View product",
+              "button_link": "shopify://products/green-onyx-double-black-ring",
+              "apply_overlay": false
+            }
+          }
+        },
+        "block_order": [
+          "1660401849ad3c5e0d-0",
+          "1660401849ad3c5e0d-1",
+          "1660401849ad3c5e0d-2",
+          "fb58d29c-17a3-4b99-a662-72a6b8313632"
+        ],
+        "settings": {
+          "image_size": "small",
+          "add_spacing": true,
+          "expand_collection": false,
+          "stack_on_mobile": true,
+          "text_color": "#ffffff",
+          "button_color": "#000000"
+        }
+      },
+      "1661700317c9aa06d5": {
+        "type": "custom-html",
+        "settings": {
+          "subheading": "",
+          "title": "",
+          "html": "<h2 style=\"font-size:30px; padding:-40px; margin:-20px; \"> OUR COLLECTIONS</h2>"
+        }
+      }
+    },
+    "content_for_index": [
+      "1576022810447",
+      "1581083321157",
+      "1575766459381",
+      "16601618581e0ba2a3",
+      "1660401849ad3c5e0d",
+      "1585006685353",
+      "1661700317c9aa06d5",
+      "16462344080c855b44"
+    ]
+  }
+}

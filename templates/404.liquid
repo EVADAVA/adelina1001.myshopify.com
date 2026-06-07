@@ -1,0 +1,107 @@
+<style>
+  .custom-404 {
+    text-align: center;
+    padding: 60px 24px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .custom-404__code {
+    font-size: 96px;
+    font-weight: 700;
+    color: #e5e0d8;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .custom-404__title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  .custom-404__desc {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .custom-404__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .custom-404__search {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .custom-404__search input {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 260px;
+  }
+  .custom-404__search button {
+    padding: 10px 20px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .custom-404__collections {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .custom-404__collections a {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+  .custom-404__collections a:hover {
+    background: #f5f0ea;
+  }
+</style>
+
+<div class="custom-404">
+  <div class="custom-404__code">404</div>
+  <h1 class="custom-404__title">{{ '404.general.title' | t }}</h1>
+  <p class="custom-404__desc">
+    The page you're looking for doesn't exist or has been moved. Explore our jewelry.
+  </p>
+
+  <div class="custom-404__search">
+    <form action="{{ routes.search_url }}">
+      <input type="hidden" name="type" value="product">
+      <div style="display:flex;gap:8px;">
+        <input type="text" name="q" placeholder="Search jewelry...">
+        <button type="submit">→</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="custom-404__actions">
+    <a href="{{ routes.root_url }}" class="Button Button--primary">Homepage</a>
+    <a href="{{ routes.all_products_collection_url }}" class="Button Button--secondary">All Jewelry</a>
+  </div>
+
+  <div class="custom-404__collections">
+    <a href="{{ routes.collections_url }}/rings">Rings</a>
+    <a href="{{ routes.collections_url }}/double-rings">Double Rings</a>
+    <a href="{{ routes.collections_url }}/earrings">Earrings</a>
+    <a href="{{ routes.collections_url }}/drops">Pendants</a>
+    <a href="/pages/faq">FAQ</a>
+    <a href="/pages/contact-us">Contact</a>
+  </div>
+</div>
+
+{%- comment -%}SEO-Doctor404Tracker removed: was JS-redirecting to homepage, hiding custom 404{%- endcomment -%}

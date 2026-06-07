@@ -1,0 +1,74 @@
+{%- comment -%}
+  Adelina Reviews Widget
+  Renders the lazy-loaded review container and injects i18n strings + product data.
+  Include in: snippets/product-tabs.liquid (reviews tab)
+  Requires:   assets/reviews.js, assets/reviews.css
+{%- endcomment -%}
+
+{{ 'reviews.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%} Aggregate rating from metafield (for JSON-LD) {%- endcomment -%}
+{%- assign rv_data = product.metafields.adelina.reviews -%}
+{%- if rv_data != blank -%}
+  {%- assign rv_count = rv_data.count | default: 0 -%}
+  {%- assign rv_avg   = rv_data.avg   | default: 0 -%}
+{%- else -%}
+  {%- assign rv_count = 0 -%}
+  {%- assign rv_avg   = 0 -%}
+{%- endif -%}
+
+{%- comment -%} Aggregate rating near product title (schema.org + visual) {%- endcomment -%}
+{%- if rv_count > 0 -%}
+<div class="rv-inline-rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+  <meta itemprop="ratingValue"  content="{{ rv_avg }}">
+  <meta itemprop="reviewCount"  content="{{ rv_count }}">
+  <meta itemprop="bestRating"   content="5">
+  <meta itemprop="worstRating"  content="1">
+  <span class="rv-inline-stars">
+    {%- for i in (1..5) -%}
+      {%- if i <= rv_avg -%}<i class="rv-star rv-star--full">★</i>
+      {%- else -%}<i class="rv-star rv-star--empty">★</i>
+      {%- endif -%}
+    {%- endfor -%}
+  </span>
+  <a href="#reviews-tab" class="rv-inline-count">{{ rv_count }} {{ 'product.tabs.reviews' | t }}</a>
+</div>
+{%- endif -%}
+
+{%- comment -%} i18n strings passed to JS {%- endcomment -%}
+<script>
+window.reviewsI18n = {
+  writeReview:    {{ 'reviews.write_review'    | t | json }},
+  reviews:        {{ 'reviews.reviews'         | t | json }},
+  noReviews:      {{ 'reviews.no_reviews'      | t | json }},
+  beFirst:        {{ 'reviews.be_first'        | t | json }},
+  verified:       {{ 'reviews.verified'        | t | json }},
+  helpful:        {{ 'reviews.helpful'         | t | json }},
+  name:           {{ 'reviews.name'            | t | json }},
+  review:         {{ 'reviews.review'          | t | json }},
+  reviewTitle:    {{ 'reviews.review_title'    | t | json }},
+  titlePlaceholder: {{ 'reviews.title_placeholder' | t | json }},
+  rating:         {{ 'reviews.rating'          | t | json }},
+  stars:          {{ 'reviews.stars'           | t | json }},
+  submit:         {{ 'reviews.submit'          | t | json }},
+  cancel:         {{ 'reviews.cancel'          | t | json }},
+  submitted:      {{ 'reviews.submitted'       | t | json }},
+  loadError:      {{ 'reviews.load_error'      | t | json }},
+  errorRating:    {{ 'reviews.error_rating'    | t | json }},
+  errorGeneric:   {{ 'reviews.error_generic'   | t | json }},
+  sortBy:         {{ 'reviews.sort_by'         | t | json }},
+  sortRecent:     {{ 'reviews.sort_recent'     | t | json }},
+  sortHelpful:    {{ 'reviews.sort_helpful'    | t | json }},
+  sortRating:     {{ 'reviews.sort_rating'     | t | json }},
+};
+</script>
+
+{%- comment -%} Widget mount point — JS initialises lazily on scroll into view {%- endcomment -%}
+<div class="rv-widget" data-reviews-widget data-product-id="{{ product.id }}">
+  <div class="rv-skeleton">
+    <div class="rv-skeleton__card"><div class="rv-skeleton__line rv-skeleton__line--wide"></div><div class="rv-skeleton__line"></div></div>
+    <div class="rv-skeleton__card"><div class="rv-skeleton__line rv-skeleton__line--wide"></div><div class="rv-skeleton__line"></div></div>
+  </div>
+</div>
+
+<script src="{{ 'reviews.js' | asset_url }}" defer></script>
