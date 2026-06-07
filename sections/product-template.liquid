@@ -251,7 +251,7 @@
             <klarna-placement
               data-key="credit-promotion-badge"
               data-locale="{{ localization.language.iso_code }}-{{ localization.country.iso_code }}"
-              data-purchase-amount="{{ product.price }}"
+              data-purchase-amount="{{ product.price | divided_by: 100.0 }}"
               style="margin-top: 8px; display: block;"
             ></klarna-placement>
           {%- endif -%}

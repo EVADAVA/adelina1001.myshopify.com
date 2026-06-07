@@ -38,7 +38,7 @@
           {%- endif -%}
         </header>
 
-        {%- assign newsletter_id = 'footer-' | append: section.id -%}
+        {%- assign newsletter_id = 'footer_' | append: section.id -%}
 
         {%- form 'customer', id: newsletter_id, class: 'Newsletter Form' -%}
           {%- if form.posted_successfully? -%}
