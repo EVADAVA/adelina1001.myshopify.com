@@ -134,8 +134,7 @@
       });
     </script>
 
-    {%- comment -%} Twitter Card: override to large image for better SERP/social preview CTR {%- endcomment -%}
-    <meta name="twitter:card" content="summary_large_image">
+    {%- comment -%} Twitter Card: removed local override. social-meta-tags.liquid emits 'summary' (default). To force 'summary_large_image' globally, change there instead. {%- endcomment -%}
     {% render 'social-meta-tags' %}
 
     {{ content_for_header }}

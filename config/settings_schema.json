@@ -579,5 +579,21 @@
         "info": "48 x 48px .png recommended"
       }
     ]
+  },
+  {
+    "name": "Theme colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Theme color"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Accent",
+        "info": "Used for browser theme-color meta, Vimeo player color, and YouTube embed player color.",
+        "default": "#1c1b1b"
+      }
+    ]
   }
 ]

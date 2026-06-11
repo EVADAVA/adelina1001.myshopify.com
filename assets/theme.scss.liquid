@@ -2986,7 +2986,6 @@ $drawer-header-height : 50px;
 
   &:focus {
     border-color: lighten($text-color, 25%);
-    outline: none;
   }
 
   &::-webkit-input-placeholder {
@@ -11474,4 +11473,12 @@ font-size:35px;
 
 .Footer__Aside {
   visibility:hidden;
+}
+
+/* A11Y: visible focus ring for keyboard users only.
+   :focus-visible is supported in all modern browsers (Chrome 86+, Firefox 85+, Safari 15.4+)
+   and correctly distinguishes keyboard focus from mouse focus without JS. */
+:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px !important;
 }

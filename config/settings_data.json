@@ -37,6 +37,7 @@
     "base_text_font_size": 14,
     "currency_conversion_enabled": false,
     "currency_conversion_round_amounts": true,
+    "accent_color": "#1c1b1b",
     "currency_conversion_supported_currencies": "EUR USD CAD GBP RUB INR",
     "currency_conversion_money_format": "money_with_currency_format",
     "show_page_transition": true,
