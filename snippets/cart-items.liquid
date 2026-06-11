@@ -239,7 +239,8 @@
         // Notify the rest of the page that cart totals changed.
         window.dispatchEvent(new CustomEvent('cart:updated', { detail: data }));
       } catch (error) {
-        console.error('Error updating cart:', error);
+        // Production: silent. Uncomment for debugging.
+        // console.error('Error updating cart:', error);
         alert('{{ 'cart.general.error' | t }}');
       } finally {
         if (spinner) spinner.style.display = 'none';

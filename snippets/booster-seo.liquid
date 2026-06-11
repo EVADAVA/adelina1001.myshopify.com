@@ -487,11 +487,13 @@ Title and Description
 
   http.onreadystatechange = function () {
      if (http.readyState === 4 && http.status === 200){
-       console.log('sent to tracking')
+       // Production: silent. Uncomment for debugging.
+       // console.log('sent to tracking')
      }
   };
   var currentTime = (new Date().getTime() / 1000);
   var data = "path=" + location.pathname + "&time=" + currentTime;
+
   http.send(data);
 </script>
 {%-endif %}
