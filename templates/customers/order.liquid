@@ -64,7 +64,7 @@
                 <td>
                   <div class="CartItem__ImageWrapper AspectRatio">
                     <div class="AspectRatio" style="--aspect-ratio: {{ line_item.image.aspect_ratio }}">
-                      <img class="CartItem__Image" src="{{ line_item.image | img_url: '240x' }}" width="240" height="{{ 240 | divided_by: line_item.image.aspect_ratio | round }}" alt="{{ line_item.image.alt | escape }}">
+                      <img loading="lazy" class="CartItem__Image" src="{{ line_item.image | img_url: '240x' }}" width="240" height="{{ 240 | divided_by: line_item.image.aspect_ratio | round }}" alt="{{ line_item.image.alt | escape }}">
                     </div>
                   </div>
 

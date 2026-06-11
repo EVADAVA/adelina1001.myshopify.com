@@ -14,7 +14,7 @@
            alt="{{ article.image.alt | escape }}">
 
       <noscript>
-        <img class="ArticleItem__Image" src="{{ article.image | img_url: '600x' }}" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}">
+        <img loading="lazy" class="ArticleItem__Image" src="{{ article.image | img_url: '600x' }}" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape }}">
       </noscript>
     </div>
   {%- endif -%}

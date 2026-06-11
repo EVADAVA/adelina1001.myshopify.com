@@ -78,7 +78,7 @@
                        alt="{{ block.settings.image.alt | escape }}">
 
                   <noscript>
-                    <img class="ShopTheLook__Image" src="{{ block.settings.image | img_url: '600x' }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.image.alt | escape }}">
+                    <img loading="lazy" class="ShopTheLook__Image" src="{{ block.settings.image | img_url: '600x' }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.image.alt | escape }}">
                   </noscript>
                 {%- else -%}
                   {%- capture placeholder -%}{% cycle 'collection-1', 'collection-2', 'collection-3', 'collection-4' %}{%- endcapture -%}

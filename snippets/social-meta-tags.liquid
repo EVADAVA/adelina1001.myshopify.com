@@ -18,8 +18,8 @@ Validate your Pinterest rich pins
   <meta property="og:title" content="{{ product.title | strip_html | escape }}">
 
   {%- for image in product.images limit:3 -%}
-    <meta property="og:image" content="https:{{ image.src | img_url: 'grande' }}">
-    <meta property="og:image:secure_url" content="https:{{ image.src | img_url: 'grande' }}">
+    <meta property="og:image" content="https:{{ image.src | image_url: width: 1200 }}">
+    <meta property="og:image:secure_url" content="https:{{ image.src | image_url: width: 1200 }}">
   {%- endfor -%}
 
   <meta property="product:price:amount" content="{{ product.price | money_without_currency | strip_html | escape }}">
@@ -29,21 +29,21 @@ Validate your Pinterest rich pins
   <meta property="og:title" content="{{ article.title | strip_html | escape }}">
 
   {%- if article.image -%}
-    <meta property="og:image" content="https:{{ article.image | img_url: 'grande' }}">
-    <meta property="og:image:secure_url" content="https:{{ article.image | img_url: 'grande' }}">
+    <meta property="og:image" content="https:{{ article.image | image_url: width: 1200 }}">
+    <meta property="og:image:secure_url" content="https:{{ article.image | image_url: width: 1200 }}">
   {%- endif -%}
 {%- elsif template.name == 'collection' -%}
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ collection.title | strip_html | escape }}">
-  <meta property="og:image" content="https:{{ collection.image | default: collection.products.first.featured_image | img_url: 'grande' }}">
-  <meta property="og:image:secure_url" content="https:{{ collection.image | default: collection.products.first.featured_image | img_url: 'grande' }}">
+  <meta property="og:image" content="https:{{ collection.image | default: collection.products.first.featured_image | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ collection.image | default: collection.products.first.featured_image | image_url: width: 1200 }}">
 {%- else -%}
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ page_title | escape }}">
 
   {%- if settings.share_image -%}
-    <meta property="og:image" content="https:{{ settings.share_image | img_url: 'grande' }}">
-    <meta property="og:image:secure_url" content="https:{{ settings.share_image | img_url: 'grande' }}">
+    <meta property="og:image" content="https:{{ settings.share_image | image_url: width: 1200 }}">
+    <meta property="og:image:secure_url" content="https:{{ settings.share_image | image_url: width: 1200 }}">
   {%- endif -%}
 {%- endif -%}
 
@@ -65,27 +65,27 @@ More information:
 - https://dev.twitter.com/cards/types/summary
 {%- endcomment -%}
 
-{%- comment -%} twitter:card set in layout/theme.liquid as summary_large_image {%- endcomment -%}
+<meta name="twitter:card" content="summary">
 {%- if template.name == 'product' -%}
   <meta name="twitter:title" content="{{ product.title }}">
   <meta name="twitter:description" content="{{ product.description | strip_html | truncatewords: 140, '' | escape }}">
-  <meta name="twitter:image" content="https:{{ product.featured_image.src | img_url: '600x600', crop: 'center' }}">
+  <meta name="twitter:image" content="https:{{ product.featured_image.src | image_url: width: 600, height: 600, crop: 'center' }}">
 {%- elsif template.name == 'article' -%}
   <meta name="twitter:title" content="{{ article.title }}">
   <meta name="twitter:description" content="{{ article.excerpt_or_content | strip_html | truncatewords: 140, '' | escape }}">
 
   {%- if article.image -%}
-    <meta name="twitter:image" content="https:{{ article.image | img_url: '600x600', crop: 'center' }}">
+    <meta name="twitter:image" content="https:{{ article.image | image_url: width: 600, height: 600, crop: 'center' }}">
   {%- endif -%}
 {%- elsif template.name == 'collection' -%}
   <meta name="twitter:title" content="{{ collection.title }}">
   <meta name="twitter:description" content="{{ collection.description | strip_html | truncatewords: 140, '' | escape }}">
-  <meta name="twitter:image" content="https:{{ collection.image | default: collection.products.first.featured_image | img_url: '600x600', crop: 'center' }}">
+  <meta name="twitter:image" content="https:{{ collection.image | default: collection.products.first.featured_image | image_url: width: 600, height: 600, crop: 'center' }}">
 {%- else -%}
   <meta name="twitter:title" content="{{ page_title | escape }}">
   <meta name="twitter:description" content="{{ page_description | default: page_title | escape }}">
 
   {%- if settings.share_image -%}
-    <meta name="twitter:image" content="https:{{ settings.share_image | img_url: '600x600', crop: 'center' }}">
+    <meta name="twitter:image" content="https:{{ settings.share_image | image_url: width: 600, height: 600, crop: 'center' }}">
   {%- endif -%}
 {%- endif -%}

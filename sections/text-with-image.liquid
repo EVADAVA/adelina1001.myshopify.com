@@ -37,7 +37,7 @@
           <img class="Image--lazyLoad Image--slide{{ section.settings.image_position | capitalize }}" data-src="{{ image_url }}" data-expand="-200" data-widths="[{{ supported_sizes }}]" data-sizes="auto" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.image.alt | escape }}">
 
           <noscript>
-            <img src="{{ section.settings.image | img_url: '800x' }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.image.alt | escape }}">
+            <img loading="lazy" src="{{ section.settings.image | img_url: '800x' }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.image.alt | escape }}">
           </noscript>
         </div>
       </div>

@@ -47,7 +47,7 @@
         {%- endif -%}
 
         <div class="GiftCard__IllustrationWrapper">
-          <img class="GiftCard__Illustration" src="{{ 'gift-card/card.jpg' | shopify_asset_url }}" width="560" height="360" alt="{{ 'gift_card.issued.illustration_alt' | t }}">
+          <img loading="lazy" class="GiftCard__Illustration" src="{{ 'gift-card/card.jpg' | shopify_asset_url }}" width="560" height="360" alt="{{ 'gift_card.issued.illustration_alt' | t }}">
           <span class="GiftCard__CodeHolder Heading u-h6">{{ gift_card.code | format_code }}</span>
         </div>
 
@@ -58,7 +58,7 @@
         {%- if gift_card.pass_url -%}
           <div class="ButtonGroup__Item">
             <a href="{{ gift_card.pass_url }}" class="GiftCard__apple-wallet">
-              <img class="apple-wallet-image" src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="{{ 'gift_card.issued.add_to_apple_wallet' | t }}">
+              <img loading="lazy" class="apple-wallet-image" src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="{{ 'gift_card.issued.add_to_apple_wallet' | t }}">
             </a>
           </div>
         {%- endif -%}

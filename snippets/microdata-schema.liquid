@@ -12,7 +12,7 @@ or change the format of some info
     {%- assign is_barcode_available = true -%}
     {%- assign gtin_string_length = product.selected_or_first_available_variant.barcode | size -%}
 
-    {%- if gtin_string_length == 8 or gtin_string_length == 11 or gtin_string_length == 12 or gtin_string_length == 13 or gtin_string_length == 14 -%}
+    {%- if gtin_string_length == 8 or gtin_string_length == 12 or gtin_string_length == 13 or gtin_string_length == 14 -%}
       {%- assign is_valid_gtin_length = true -%}
       {%- assign gtin_option = gtin_option | append: gtin_string_length -%}
     {%- endif -%}
@@ -45,7 +45,7 @@ or change the format of some info
           "seller": {
             "@type": "Organization",
             "@id": "{{ shop.url }}/#organization",
-            "name": "Adelina World"
+            "name": {{ shop.name | json }}
           },
           "url": "{{ shop.url }}{{ variant.url }}"
         }{% unless forloop.last %},{% endunless %}
@@ -58,18 +58,10 @@ or change the format of some info
       "mpn": {{ product.selected_or_first_available_variant.barcode | json }},
       "productId": {{ product.selected_or_first_available_variant.barcode | json }},
     {%- endif %}
-    {%- if has_reviews -%}
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": {{ rating_value }},
-        "reviewCount": {{ review_count }},
-        "bestRating": 5,
-        "worstRating": 1
-      },
-    {%- endif %}
+    {# aggregateRating removed: booster-seo.liquid already emits it per product #}
     "brand": {
       "@type": "Brand",
-      "name": "Adelina World"
+      "name": {{ shop.name | json }}
     },
     "name": {{ product.title | json }},
     "description": {{ product.description | strip_html | strip_newlines | json }},
@@ -125,7 +117,7 @@ or change the format of some info
     "publisher": {
       "@type": "Organization",
       "@id": "{{ shop.url }}/#organization",
-      "name": "Adelina World"
+      "name": {{ shop.name | json }}
     },
     "commentCount": {{ article.comments_count }},
     "comment": [
@@ -258,7 +250,7 @@ or change the format of some info
     "@type": "AboutPage",
     "url": "{{ shop.url }}{{ page.url }}",
     "name": {{ page.title | json }},
-    "description": "Adelina World is an Italian handmade jewelry brand founded by Adelina Amlinskaya, specializing in natural gemstone jewelry crafted in Jaipur.",
+    "description": "{{ shop.name }} is an Italian handmade jewelry brand founded by Adelina Amlinskaya, specializing in natural gemstone jewelry crafted in Jaipur.",
     "about": {
       "@id": "{{ shop.url }}/#organization"
     },

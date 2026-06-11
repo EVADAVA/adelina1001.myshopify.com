@@ -56,7 +56,7 @@
                    alt="{{ block.settings.image.alt | escape }}">
 
               <noscript>
-                <img class="Slideshow__Image" src="{{ block.settings.image | img_url: '1000x' }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.image.alt | escape }}">
+                <img loading="lazy" class="Slideshow__Image" src="{{ block.settings.image | img_url: '1000x' }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.image.alt | escape }}">
               </noscript>
             </div>
           {%- else -%}

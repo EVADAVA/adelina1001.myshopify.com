@@ -31,7 +31,7 @@
   {
     "@type":"Organization",
     "@id":"{{ shop.url }}/#organization",
-    "name":"Adelina World",
+    "name":{{ shop.name | json }},
     "url":"{{ shop.url }}",
     "foundingDate":"2024",
     "founder":{"@id":"{{ shop.url }}/#person-adelina"},
@@ -45,7 +45,7 @@
     "@type":"WebSite",
     "@id":"{{ shop.url }}/#website",
     "url":"{{ shop.url }}",
-    "name":"Adelina World",
+    "name":{{ shop.name | json }},
     "publisher":{"@id":"{{ shop.url }}/#organization"},
     "potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"{{ shop.url }}/search?q={search_term_string}"},"query-input":"required name=search_term_string"}
   }

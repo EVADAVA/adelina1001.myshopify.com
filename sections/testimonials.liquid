@@ -29,7 +29,7 @@
           {%- endif -%}
 
           {%- if block.settings.logo != blank -%}
-            <img class="Testimonial__Logo hidden-lap-and-up" src="{{ block.settings.logo | img_url: '300x' }}" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}" alt="{{ block.settings.logo.alt | escape }}">
+            <img loading="lazy" class="Testimonial__Logo hidden-lap-and-up" src="{{ block.settings.logo | img_url: '300x' }}" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}" alt="{{ block.settings.logo.alt | escape }}">
           {%- endif -%}
         </div>
       </div>
@@ -40,7 +40,7 @@
     <div class="TestimonialNav hidden-pocket">
       {%- for block in section.blocks -%}
         {%- if block.settings.logo != blank -%}
-          <img class="TestimonialNav__Item {% if forloop.first %}is-selected{% endif %}" src="{{ block.settings.logo | img_url: '300x' }}" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}" alt="{{ block.settings.logo.alt | escape }}" data-index="{{ forloop.index0 }}">
+          <img loading="lazy" class="TestimonialNav__Item {% if forloop.first %}is-selected{% endif %}" src="{{ block.settings.logo | img_url: '300x' }}" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}" alt="{{ block.settings.logo.alt | escape }}" data-index="{{ forloop.index0 }}">
         {%- endif -%}
       {%- endfor -%}
     </div>

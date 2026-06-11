@@ -47,7 +47,7 @@
               <span class="Image__Loader"></span>
 
               <noscript>
-                <img src="{{ product.featured_image | img_url: '600x' }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt | escape }}">
+                <img loading="lazy" src="{{ product.featured_image | img_url: '600x' }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt | escape }}">
               </noscript>
             </div>
           </a>

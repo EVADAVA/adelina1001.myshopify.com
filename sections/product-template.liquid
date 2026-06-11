@@ -138,7 +138,7 @@
 
                     {%- if section.settings.stack_images -%}
                       <a href="#Image{{ image.id }}" data-image-id="{{ image.id }}" class="Product__SlideshowNavImage {% if is_video %}Product__SlideshowNavImage--video{% endif %} AspectRatio {% if forloop.first %}is-selected{% endif %}" style="--aspect-ratio: {{ image.aspect_ratio }}">
-                        <img src="{{ image | img_url: '160x' }}" width="160" height="{{ 160 | divided_by: image.aspect_ratio | round }}" alt="{{ image.alt | escape }}">
+                        <img loading="lazy" src="{{ image | img_url: '160x' }}" width="160" height="{{ 160 | divided_by: image.aspect_ratio | round }}" alt="{{ image.alt | escape }}">
 
                         {%- if is_video -%}
                           <button type="button" class="Product__SlideshowNavPlay" data-action="play-video" aria-label="{{ 'home_page.featured_video.play' | t }}">{% render 'icon' with 'play' %}</button>
@@ -146,7 +146,7 @@
                       </a>
                     {%- else -%}
                       <span data-image-id="{{ image.id }}" class="Product__SlideshowNavImage {% if is_video %}Product__SlideshowNavImage--video{% endif %} AspectRatio {% if forloop.first %}is-selected{% endif %}" style="--aspect-ratio: {{ image.aspect_ratio }}">
-                        <img src="{{ image | img_url: '160x' }}" width="160" height="{{ 160 | divided_by: image.aspect_ratio | round }}" alt="{{ image.alt | escape }}">
+                        <img loading="lazy" src="{{ image | img_url: '160x' }}" width="160" height="{{ 160 | divided_by: image.aspect_ratio | round }}" alt="{{ image.alt | escape }}">
 
                         {%- if is_video -%}
                           <button type="button" class="Product__SlideshowNavPlay" data-action="play-video" aria-label="{{ 'home_page.featured_video.play' | t }}">{% render 'icon' with 'play' %}</button>

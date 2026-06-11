@@ -45,8 +45,8 @@
         <span class="Image__Loader"></span>
 
         <noscript>
-          <img class="ProductItem__Image ProductItem__Image--alternate" src="{{ product.images[1] | img_url: '600x' }}" width="{{ product.images[1].width }}" height="{{ product.images[1].height }}" alt="{{ product.images[1].alt | escape }}">
-          <img class="ProductItem__Image" src="{{ product.featured_image | img_url: '600x' }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt | escape }}">
+          <img loading="lazy" class="ProductItem__Image ProductItem__Image--alternate" src="{{ product.images[1] | img_url: '600x' }}" width="{{ product.images[1].width }}" height="{{ product.images[1].height }}" alt="{{ product.images[1].alt | escape }}">
+          <img loading="lazy" class="ProductItem__Image" src="{{ product.featured_image | img_url: '600x' }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" alt="{{ product.featured_image.alt | escape }}">
         </noscript>
       </div>
     </a>

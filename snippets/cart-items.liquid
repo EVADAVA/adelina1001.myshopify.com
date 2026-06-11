@@ -21,7 +21,7 @@
     <div class="CartItem" data-line-item="{{ line_item.key }}">
       <div class="CartItem__ImageWrapper AspectRatio">
         <div class="AspectRatio" style="--aspect-ratio: {{ line_item.image.aspect_ratio }}">
-          <img class="CartItem__Image"
+          <img loading="lazy" class="CartItem__Image"
                src="{{ line_item.image | img_url: '240x' }}"
                srcset="{{ line_item.image | img_url: '240x' }} 240w, {{ line_item.image | img_url: '480x' }} 480w"
                sizes="(max-width: 240px) 100vw, 240px"
