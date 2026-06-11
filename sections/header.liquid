@@ -30,10 +30,14 @@ USEFUL VARIABLES
 CURRENCY CONVERTER
 
 The theme currency converter is used in lot of different places so to simply the code it's outputted here once
+
+NOTE: Disabled 2026-06-11 — Adelina World is EUR-only. Selector was showing USD/GBP/INR as a UI lie
+because settings.currency_conversion_enabled=false but shop.enabled_currencies.size>1 was
+spuriously true. Re-enable by removing this comment if multi-currency is re-activated in Admin.
 --------------------------------------------------------------------------------------------------------------------
 {%- endcomment -%}
 
-{%- if settings.currency_conversion_enabled or shop.enabled_currencies.size > 1 -%}
+{%- if false and settings.currency_conversion_enabled or shop.enabled_currencies.size > 1 -%}
   {%- capture currency_conversion_select -%}
     <div class="Header__CurrencySelector Text--subdued Heading Link Link--primary u-h8 hidden-pocket hidden-lap">
       <div class="Select Select--transparent">
