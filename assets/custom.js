@@ -99,6 +99,10 @@
     });
   }
 
+  // Per-line race guard: prevent double-click +/- from racing two change.js requests
+  // for the same line. Different lines should not block each other.
+  var inFlightLines = {};
+
   function cartSetActive(active) {
     try {
       if (active) sessionStorage.setItem(CART_FLOW_KEY, '1');
@@ -195,6 +199,12 @@
   // обработчики в snippets/cart-items.liquid — мы просто перехватываем клик
   // раньше них (capture phase) и используем тот же самый эндпоинт.
   function changeLine(lineId, quantity, done) {
+    // Per-line race guard: if a request for this line is in flight, drop the new click.
+    if (inFlightLines[lineId]) {
+      if (done) done(null, null);  // silent no-op
+      return;
+    }
+    inFlightLines[lineId] = true;
     var cartRoot = getCartRoot();
     setLoading(true);
     fetch(cartRoot + 'cart/change.js', {
@@ -225,7 +235,10 @@
       if (done) done(null, res.data);
     })
     .catch(function (err) { if (done) done(err, null); })
-    .finally(function () { setLoading(false); });
+    .finally(function () {
+      setLoading(false);
+      delete inFlightLines[lineId];  // always release the lock
+    });
   }
 
   // ── Полная ресинхронизация сервера с локальной корзиной ────────────────────

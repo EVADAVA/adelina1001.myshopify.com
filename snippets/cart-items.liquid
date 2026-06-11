@@ -195,11 +195,19 @@
 
         const isDrawer = !!document.querySelector('#sidebar-cart');
         const view = isDrawer ? 'drawer' : 'ajax';
-        const cartHtmlResponse = await fetch(cartRoot + 'cart?view=' + view + '&timestamp=' + Date.now(), {
-          method: 'GET',
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        });
-        const html = await cartHtmlResponse.text();
+        // GET failure should NOT trigger the outer catch — the POST itself succeeded.
+        // Swallow GET errors silently (UI may be stale until next refresh).
+        let html = '';
+        try {
+          const cartHtmlResponse = await fetch(cartRoot + 'cart?view=' + view + '&timestamp=' + Date.now(), {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          });
+          html = await cartHtmlResponse.text();
+        } catch (getErr) {
+          // GET failed but POST succeeded — keep the user's intent, don't alert.
+          return;
+        }
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
 
