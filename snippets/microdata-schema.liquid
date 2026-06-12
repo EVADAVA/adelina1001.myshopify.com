@@ -58,7 +58,10 @@ or change the format of some info
       "mpn": {{ product.selected_or_first_available_variant.barcode | json }},
       "productId": {{ product.selected_or_first_available_variant.barcode | json }},
     {%- endif %}
-    {# aggregateRating removed: booster-seo.liquid already emits it per product #}
+    {%- comment -%} aggregateRating removed: booster-seo.liquid already emits it per product.
+        (2026-06-12: was a curly-hash comment — that syntax does not exist in Shopify Liquid,
+        so the line was printed literally into the JSON-LD and broke the whole Product schema
+        on every product page.) {%- endcomment -%}
     "brand": {
       "@type": "Brand",
       "name": {{ shop.name | json }}

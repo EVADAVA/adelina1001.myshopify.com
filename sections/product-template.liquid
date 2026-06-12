@@ -82,7 +82,10 @@
             {% assign image_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' | append: '&format=webp' %}
 
             <img class="Image--lazyLoad Image--fadeIn"
-                 {% if initial_image_id == image.id %}src="{{ image | img_url: '250x', format: 'webp' }}"{% endif %}
+                 {%- comment -%} format: 'webp' removed 2026-06-12: the Liquid filter only converts
+                     jpg/pjpg — on PNG product images it rendered a literal "Liquid error" string
+                     into src, breaking the initial image until lazysizes swapped in data-src. {%- endcomment -%}
+                 {% if initial_image_id == image.id %}src="{{ image | img_url: '250x' }}"{% endif %}
                  data-src="{{ image_url }}"
                  data-widths="[{{ supported_sizes }}]"
                  data-sizes="auto"
