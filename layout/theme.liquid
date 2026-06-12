@@ -121,19 +121,27 @@
         if (d.analyticsAllowed) _loadClarity();
       });
 
-      // Проверка при загрузке для вернувшихся посетителей (уже дали согласие)
+      // Проверка при загрузке для вернувшихся посетителей (уже дали согласие).
+      // ВАЖНО: window.Shopify.customerPrivacy НЕ существует на странице сам по себе —
+      // его нужно явно загрузить через Shopify.loadFeatures. Старый код проверял его
+      // на DOMContentLoaded напрямую и молча выходил → у вернувшихся посетителей
+      // GA4 оставался в denied-режиме, а Clarity не загружался вовсе.
       document.addEventListener('DOMContentLoaded', function() {
-        var cp = window.Shopify && window.Shopify.customerPrivacy;
-        if (!cp) return;
-        if (cp.analyticsProcessingAllowed()) {
-          if (window.gtag) gtag('consent', 'update', { 'analytics_storage': 'granted' });
-          _loadClarity();
-        }
-        if (cp.marketingAllowed() && window.gtag) {
-          gtag('consent', 'update', {
-            'ad_storage': 'granted', 'ad_user_data': 'granted', 'ad_personalization': 'granted'
-          });
-        }
+        if (!window.Shopify || !window.Shopify.loadFeatures) return;
+        window.Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function (error) {
+          if (error) return;
+          var cp = window.Shopify.customerPrivacy;
+          if (!cp) return;
+          if (cp.analyticsProcessingAllowed()) {
+            if (window.gtag) gtag('consent', 'update', { 'analytics_storage': 'granted' });
+            _loadClarity();
+          }
+          if (cp.marketingAllowed() && window.gtag) {
+            gtag('consent', 'update', {
+              'ad_storage': 'granted', 'ad_user_data': 'granted', 'ad_personalization': 'granted'
+            });
+          }
+        });
       });
 
       // GDPR/ePrivacy: повторное открытие настроек согласия — ссылка
