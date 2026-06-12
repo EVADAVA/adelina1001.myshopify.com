@@ -8,11 +8,16 @@
   <div class="PageContent PageContent--narrow">
     <div class="Rte">
       {{- page.content -}}
-	
-      <div style="display:none;" data-submit-form>
-        <div class="klaviyo-form-Qfcnzj"></div>      
-      </div>
-      {% comment %}
+
+      {%- comment -%}
+        2026-06-12: restored the native Shopify contact form. The previous Klaviyo
+        replacement (GET to manage.kmail-lists.com with novalidate + target=_blank)
+        was a newsletter SUBSCRIPTION, not a contact message: browser validation was
+        off (empty submits went through) and the user landed on a Klaviyo page in a
+        new tab. The hidden klaviyo-form-Qfcnzj div and the jQuery bridge in
+        theme.liquid that targeted it were dead code and have been removed.
+        Messages now go to the store's customer email via Shopify.
+      {%- endcomment -%}
       {%- form 'contact', class: 'Form Form--spacingTight' -%}
         {%- if form.posted_successfully? -%}
           <p class="Alert Alert--success">{{ 'contact.form.successfully_sent' | t }}</p>
@@ -88,41 +93,6 @@
 
         <button type="submit" class="Form__Submit Button Button--primary Button--full">{{ 'contact.form.submit' | t }}</button>
       {%- endform -%}
-      {% endcomment %}
-      
-      <form id="email_signup" class="Form Form--spacingTight newslettermodal-content-form text-center klaviyo_gdpr_embed_Ke9MrJ" action="//manage.kmail-lists.com/subscriptions/subscribe" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate">
-        <input type="hidden" name="g" value="Ke9MrJ">
-        <div class="Form__Group">
-          <div class="Form__Item">
-            <input type="text" class="Form__Input" name="name" id="k_id_first_name" aria-label="Name" placeholder="Name*" required="">
-            <label class="Form__FloatingLabel">Name</label>
-          </div>
-
-          <div class="Form__Item">
-            <input type="email" class="Form__Input" name="email" id="k_id_email" aria-label="Email" placeholder="Email*" required="">
-            <label class="Form__FloatingLabel">Email</label>
-          </div>
-        </div>
-        <div class="Form__Item">
-          <input type="text" class="Form__Input" name="phone-number" id="k_id_phone_number" aria-label="Phone Number" placeholder="Phone Number*" required="">
-          <label class="Form__FloatingLabel">Phone Number</label>
-        </div>
-        <div class="Form__Item">
-          <input type="text" class="Form__Input" name="country" id="k_id_country" aria-label="Country" placeholder="Country*" required="">
-          <label class="Form__FloatingLabel">Country</label>
-        </div>
-        <div class="Form__Item">
-          <input type="text" class="Form__Input" name="city" id="k_id_city" aria-label="City" placeholder="City*" required="">
-          <label class="Form__FloatingLabel">City</label>
-        </div>
-        <div class="klaviyo_messages">
-          <div class="success_message" style="display:none;"> Thanks for subscribing! <br/> Check your email for a confirmation message.</div>
-          <div class="error_message mb-0" style="display:none;">Please fill all the required fields.</div>
-        </div>
-        <button class="Form__Submit Button Button--primary Button--full" type="submit" >Send message</button>
-        <button class="Form__Submit Button Button--primary Button--full" type="button" style="display:none;" data-button>Send message</button>
-      </form>
-      
     </div>
   </div>
 </div>

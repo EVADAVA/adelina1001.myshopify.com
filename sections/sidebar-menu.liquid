@@ -81,9 +81,15 @@
         {%- endcapture -%}
       {%- endif -%}
 
-      {%- if settings.currency_conversion_enabled or shop.enabled_currencies.size > 1 or social_media != blank -%}
+      {%- if social_media != blank -%}
         <aside class="Drawer__Footer" data-drawer-animated-bottom>
-          {%- if settings.currency_conversion_enabled or shop.enabled_currencies.size > 1 -%}
+          {%- comment -%}
+            NOTE: Disabled 2026-06-12 — same reason as the desktop selector in header.liquid:
+            Adelina World is EUR-only, the selector was showing USD/GBP/INR as a UI lie, and any
+            non-EUR choice is immediately reverted by the force-EUR script in theme.liquid.
+            Re-enable both selectors together if multi-currency is re-activated in Admin.
+          {%- endcomment -%}
+          {%- if false and settings.currency_conversion_enabled or shop.enabled_currencies.size > 1 -%}
             <div class="SidebarMenu__CurrencySelector">
               <div class="Select Select--transparent">
                 {%- if shop.enabled_currencies.size > 1 -%}

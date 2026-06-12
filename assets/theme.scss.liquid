@@ -5142,6 +5142,10 @@ select::-ms-expand {
 
   &:focus {
     background: $background;
+  }
+
+  // Keep native focus outline for keyboard users; hide it for mouse/touch only
+  body:not(.is-tabbing) &:focus {
     outline: none;
   }
 }

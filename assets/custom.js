@@ -125,11 +125,6 @@
 
   shouldResetCartOnLoad = !cartHasActiveFlow() || isPostCheckout();
 
-  if (shouldResetCartOnLoad) {
-    cartSet({});
-    updateHeaderCartCount(0);
-  }
-
   function cartAddItem(variantId, qty) {
     var c = cartGet();
     var k = String(variantId);
@@ -323,13 +318,41 @@
     .finally(function () { setLoading(false); });
   }
 
-  // Always resync server cart on page load:
-  // - on reset: clears server cart (empty sessionStorage → cart/clear.js)
-  // - on active session: ensures server cart matches sessionStorage even after
-  //   page refresh when server cart has expired or been cleared post-checkout
-  if (shouldResetCartOnLoad || hasCartItems(cartGet())) {
+  // ── Принятие серверной корзины как истины при «холодном» старте ───────────
+  // sessionStorage живёт в пределах вкладки. Новая вкладка, возврат на сайт
+  // (в т.ч. из abandoned-cart письма) или переход после чекаута — везде
+  // локальный стор пуст, но серверная корзина может быть полна. Раньше здесь
+  // выполнялся sendCart() с пустым стором, который ОБНУЛЯЛ все строки
+  // серверной корзины — покупатели теряли корзину. Теперь наоборот: при
+  // холодном старте локальный стор строится из серверной корзины (после
+  // чекаута Shopify сам её очищает, так что пост-чекаут кейс покрыт тем же
+  // путём). sendCart() остаётся только для активной сессии с непустым локальным
+  // стором — починка протухшей серверной корзины (исходный баг «пустой /cart»).
+  function adoptServerCart() {
+    fetch(getCartRoot() + 'cart.js', {
+      credentials: 'same-origin',
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (serverCart) {
+      syncLocalFromServerItems(serverCart.items);
+      updateHeaderCartCount(serverCart.item_count);
+    })
+    .catch(function () { /* серверная корзина недоступна — ничего не трогаем */ });
+  }
+
+  if (shouldResetCartOnLoad) {
+    adoptServerCart();
+  } else if (hasCartItems(cartGet())) {
     sendCart();
   }
+
+  // Если строку изменил inline-обработчик из cart-items.liquid (страница /cart),
+  // он шлёт cart:updated с ответом change.js — синхронизируем локальный стор,
+  // чтобы sendCart() на следующей навигации не откатил изменения.
+  window.addEventListener('cart:updated', function (e) {
+    if (e.detail && e.detail.items) syncLocalFromServerItems(e.detail.items);
+  });
 
   // ── Add to Cart (capture phase) ────────────────────────────────────────────
   document.addEventListener('click', function (event) {
@@ -365,8 +388,17 @@
     });
   }, true);
 
+  // На странице /cart дровер (#sidebar-cart) не рендерится, и наш capture-
+  // обработчик не умеет перерисовывать разметку страницы корзины. Там работает
+  // inline-скрипт из cart-items.liquid (?view=ajax → замена секции), а мы
+  // подхватываем его результат через событие cart:updated выше.
+  function isCartPage() {
+    return window.theme && window.theme.template === 'cart' && !document.getElementById('sidebar-cart');
+  }
+
   // ── Drawer: кнопки +/- и удалить (capture phase) ──────────────────────────
   document.addEventListener('click', function (e) {
+    if (isCartPage()) return;
     var minus  = e.target.closest('[data-quantity-minus]');
     var plus   = e.target.closest('[data-quantity-plus]');
     var remove = e.target.closest('[data-remove-item]');
@@ -425,6 +457,7 @@
 
   // ── Drawer: ввод количества ────────────────────────────────────────────────
   document.addEventListener('change', function (e) {
+    if (isCartPage()) return;
     var input = e.target.closest('[data-quantity-input]');
     if (!input) return;
     var lineId = input.getAttribute('data-line-id');
@@ -455,7 +488,11 @@
     try {
       if (localStorage.getItem('_adelinaCheckout') !== '1') return;
       localStorage.removeItem('_adelinaCheckout');
-      var cartForm = document.querySelector('form[action*="/cart"]');
+      // Только на странице корзины и только форма самой корзины (form.Cart):
+      // на других страницах селектор form[action*="/cart"] матчил бы форму
+      // /cart/add товара, и протухший флаг вызывал бы неожиданный сабмит.
+      if (!window.theme || window.theme.template !== 'cart') return;
+      var cartForm = document.querySelector('form.Cart[action*="/cart"]');
       if (cartForm) cartForm.submit();
     } catch (e) {}
   });

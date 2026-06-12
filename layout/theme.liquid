@@ -65,10 +65,13 @@
       <meta name="robots" content="noindex, follow">
     {%- endif -%}
 
-    {%- comment -%} Performance: preconnect to critical origins {%- endcomment -%}
+    {%- comment -%}
+      Performance: preconnect to critical origins.
+      static.klaviyo.com / www.klaviyo.com removed 2026-06-12 — nothing loads from those domains
+      (no Klaviyo embed JS in the theme). The footer newsletter posts to manage.kmail-lists.com.
+    {%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <link rel="preconnect" href="https://static.klaviyo.com" crossorigin>
-    <link rel="dns-prefetch" href="//www.klaviyo.com">
+    <link rel="preconnect" href="https://manage.kmail-lists.com">
 
     {%- comment -%}
       LCP: preload first slideshow hero image.
@@ -130,6 +133,20 @@
           gtag('consent', 'update', {
             'ad_storage': 'granted', 'ad_user_data': 'granted', 'ad_personalization': 'granted'
           });
+        }
+      });
+
+      // GDPR/ePrivacy: повторное открытие настроек согласия — ссылка
+      // "Cookie settings" в футере (data-cookie-prefs) открывает нативный
+      // диалог предпочтений Shopify Privacy Banner.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('[data-cookie-prefs]');
+        if (!a) return;
+        e.preventDefault();
+        if (window.privacyBanner && typeof window.privacyBanner.showPreferences === 'function') {
+          window.privacyBanner.showPreferences();
+        } else if (window.Shopify && window.Shopify.customerPrivacy && typeof window.Shopify.customerPrivacy.openPreferencesDialog === 'function') {
+          window.Shopify.customerPrivacy.openPreferencesDialog();
         }
       });
     </script>
@@ -200,9 +217,11 @@
       })();
     </script>
 
-    <!-- jQuery is required for theme.min.js - loaded first -->
-    <script src="{{ 'jquery-3.4.1.min.js' | asset_url }}" defer></script>
-
+    {%- comment -%}
+      jQuery removed 2026-06-12: theme.min.js contains zero jQuery references (the old comment
+      claiming it was required was wrong). Its only consumer was the dead contact-form bridge,
+      removed below. If a future app/snippet needs jQuery, re-add assets/jquery-3.4.1.min.js here.
+    {%- endcomment -%}
     <script src="{{ 'lazysizes.min.js' | asset_url }}" async></script>
 
     {% if settings.currency_conversion_enabled %}
@@ -222,16 +241,20 @@
     {% render 'microdata-schema' %}
 
   <script>
-    // Force EUR currency — persist across navigations
+    // Force EUR currency — persist across navigations.
+    // Перезагружаем страницу ТОЛЬКО если в URL явно передан чужой ?currency=
+    // (старые ссылки/закладки). Просто отсутствующая или чужая кука больше не
+    // вызывает редирект: раньше это давало двойную загрузку первой страницы
+    // каждому посетителю, которому Shopify выставил не-EUR валюту.
     (function() {
       var cookieName = 'cart_currency';
       if (document.cookie.indexOf(cookieName + '=EUR') === -1) {
         document.cookie = cookieName + '=EUR;path=/;max-age=31536000;SameSite=Lax';
-        var params = new URLSearchParams(window.location.search);
-        if (params.get('currency') !== 'EUR') {
-          params.set('currency', 'EUR');
-          window.location.search = params.toString();
-        }
+      }
+      var params = new URLSearchParams(window.location.search);
+      if (params.has('currency') && params.get('currency') !== 'EUR') {
+        params.set('currency', 'EUR');
+        window.location.search = params.toString();
       }
     })();
   </script>
@@ -262,26 +285,6 @@
 
       <script>
         document.addEventListener('DOMContentLoaded', function() {
-          var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-          $('[data-button]').on('click', function(e){
-            e.preventDefault();
-            if($('#k_id_email').val() != '' && pattern.test($('#k_id_email').val()) && $('#k_id_first_name').val() != '' && $('#k_id_phone_number').val() != '' && $('#k_id_country').val() != '' && $('#k_id_city').val() != '') {
-              $('.error_message').hide();
-              $('.success_message').show();
-              $('[data-submit-form] [placeholder="Name"]').val($('#k_id_first_name').val());
-              $('[data-submit-form] [placeholder="Email"]').val($('#k_id_email').val());
-              $('[data-submit-form] [placeholder="Phone Number"]').val($('#k_id_phone_number').val());
-              $('[data-submit-form] [placeholder="Country"]').val($('#k_id_country').val());
-              $('[data-submit-form] [placeholder="City"]').val($('#k_id_city').val());
-              setTimeout(function(){
-                $('[data-submit-form] form button').trigger('click');
-              }, 500);
-            } else {
-              $('.error_message').show();
-              $('.success_message').hide();
-            }
-          });
-
           // ── Klaviyo footer newsletter — direct AJAX subscribe ─────────────────
           var newsletterForm = document.getElementById('footer-newsletter');
           if (newsletterForm) {
