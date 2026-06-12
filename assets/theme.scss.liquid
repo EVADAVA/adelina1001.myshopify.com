@@ -6550,9 +6550,13 @@ select::-ms-expand {
       width: 300px;
     }
 
+    // Expanded cart page renders a second, sibling copy of CartItem__Actions
+    // as its own table-cell under the Quantity column header (markup in
+    // snippets/cart-items.liquid) — hide the nested (phone) copy on
+    // tablet-and-up so quantity controls don't show twice. The drawer is
+    // not .Cart--expanded and keeps its nested copy visible.
     .CartItem__Info > .CartItem__Actions {
-      display: block;
-      margin-top: 12px;
+      display: none;
     }
 
     .CartItem__Info ~ .CartItem__Actions,

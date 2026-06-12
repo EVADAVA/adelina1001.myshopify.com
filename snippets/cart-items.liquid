@@ -82,7 +82,6 @@
                 </button>
 
                 <input type="text"
-                       id="quantity_{{ line_item.key }}"
                        class="QuantitySelector__CurrentQuantity"
                        name="updates[]"
                        value="{{ line_item.quantity }}"
@@ -106,10 +105,16 @@
           </div>
         {%- endcapture -%}
 
+        {%- comment -%}
+          Вложенная копия actions: видна в дровере и на телефоне (полная страница).
+          На полной странице tablet-and-up её прячет CSS (.Cart--expanded .CartItem__Info > .CartItem__Actions),
+          а работает сестринская копия ниже — отдельная table-cell под колонкой Quantity.
+        {%- endcomment -%}
         {{ item_actions }}
       </div>
 
       {%- unless for_drawer -%}
+        {{ item_actions }}
         <div class="CartItem__LinePriceList Heading Text--subdued" style="text-align: right">
           {%- if line_item.original_line_price != line_item.final_line_price -%}
             <span class="CartItem__Price Price Price--highlight" data-money-convertible>{{ line_item.final_line_price | money_without_trailing_zeros }}</span>
