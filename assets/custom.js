@@ -158,6 +158,8 @@
       replaceCartDrawer(html);
       var count = parseItemCount(html);
       updateHeaderCartCount(count !== null ? count : fallbackCount);
+      // Notify the Complete-the-Set nudge to recompute (drawer was re-rendered).
+      window.dispatchEvent(new CustomEvent('adl:cart:rendered'));
     }
   }
 

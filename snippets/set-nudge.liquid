@@ -1,0 +1,191 @@
+{%- comment -%}
+  set-nudge.liquid — «Добей до сета» / Complete-the-Set nudge.
+  Self-contained: family config (generated from live products) + logic + styles.
+  Renders a card inside [data-set-nudge] (lives in snippets/cart-items.liquid) when
+  the cart holds >=2 pieces of one family but not its Set. One button swaps the loose
+  pieces for the discounted Set via a single /cart/update.js call.
+  Regenerate config with /tmp/gen_snippet.py if products/prices change.
+{%- endcomment -%}
+<style>
+  .SetNudge{margin:14px 0 4px}
+  .SetNudge__Card{display:flex;gap:12px;align-items:flex-start;padding:14px;
+    border:1px solid var(--border-color,#e3ddd4);border-radius:6px;
+    background:var(--secondary-background,#faf7f2)}
+  .SetNudge__Card+.SetNudge__Card{margin-top:10px}
+  .SetNudge__Thumb{flex:0 0 56px;width:56px;height:56px;border-radius:4px;object-fit:cover}
+  .SetNudge__Body{flex:1 1 auto;min-width:0}
+  .SetNudge__Title{font-weight:600;font-size:13px;line-height:1.35;margin:0 0 3px}
+  .SetNudge__Text{font-size:12px;line-height:1.4;margin:0 0 9px;opacity:.85}
+  .SetNudge__Save{font-weight:600}
+  .SetNudge__Btn{display:inline-block;width:100%;padding:9px 12px;border:0;cursor:pointer;
+    font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:4px;
+    background:var(--button-background,#1c1c1c);color:var(--button-text-color,#fff);transition:opacity .15s}
+  .SetNudge__Btn:hover{opacity:.85}
+  .SetNudge__Btn[disabled]{opacity:.5;cursor:default}
+  .SetNudge__Err{color:#c0392b;font-size:12px;margin:6px 0 0}
+</style>
+<script>
+(function(){
+  if (window.__adlSetNudgeBound) return;
+  window.__adlSetNudgeBound = true;
+
+  var CFG = {"families":[{"key":"pearl white enamel gold-plated, citrine/white topaz","label":"Pearl White Enamel Gold-Plated, Citrine/White Topaz","pieces":[{"role":"Ring","variant":54126347059541,"price":39500,"title":"Pearl White Enamel Gold-Plated Ring, Citrine/White Topaz","handle":"enamel-gp-ring-citrine-white-topaz","url":"/products/enamel-gp-ring-citrine-white-topaz"},{"role":"Earrings","variant":54126347092309,"price":75000,"title":"Pearl White Enamel Gold-Plated Earring, Citrine/White Topaz","handle":"enamel-gp-earring-citrine-white-topaz","url":"/products/enamel-gp-earring-citrine-white-topaz"},{"role":"Pendant","variant":54126347157845,"price":95000,"title":"Pearl White Enamel Gold-Plated Pendant, Citrine/White Topaz","handle":"enamel-gp-pendant-citrine-white-topaz","url":"/products/enamel-gp-pendant-citrine-white-topaz"}],"set":{"role":"Set","variant":54128248062293,"price":167500,"title":"Pearl White Enamel Gold-Plated Set, Citrine/White Topaz","handle":"enamel-gp-set-citrine-white-topaz","url":"/products/enamel-gp-set-citrine-white-topaz","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/bac8dc50cfa18c42d091217926210806_7a82e9c7-52a7-4c92-82df-c857948c74f0.jpg?v=1781364877"},"pieceSum":209500,"short":"Pearl White Enamel, Citrine"},{"key":"pearl white enamel gold-plated, garnet/white topaz","label":"Pearl White Enamel Gold-Plated, Garnet/White Topaz","pieces":[{"role":"Ring","variant":54126347452757,"price":39500,"title":"Pearl White Enamel Gold-Plated Ring, Garnet/White Topaz","handle":"enamel-gp-ring-garnet-white-topaz","url":"/products/enamel-gp-ring-garnet-white-topaz"},{"role":"Earrings","variant":54126347485525,"price":75000,"title":"Pearl White Enamel Gold-Plated Earring, Garnet/White Topaz","handle":"enamel-gp-earring-garnet-white-topaz","url":"/products/enamel-gp-earring-garnet-white-topaz"},{"role":"Pendant","variant":54126347518293,"price":95000,"title":"Pearl White Enamel Gold-Plated Pendant, Garnet/White Topaz","handle":"enamel-gp-pendant-garnet-white-topaz","url":"/products/enamel-gp-pendant-garnet-white-topaz"}],"set":{"role":"Set","variant":54128248095061,"price":167500,"title":"Pearl White Enamel Gold-Plated Set, Garnet/White Topaz","handle":"enamel-gp-set-garnet-white-topaz","url":"/products/enamel-gp-set-garnet-white-topaz","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/9787bd23d46ec6159b37c7d451910507_88194ddf-1854-4d15-8d6c-18e8087c4cd3.jpg?v=1781364887"},"pieceSum":209500,"short":"Pearl White Enamel, Garnet"},{"key":"black piano lacquer enamel gold-plated, amethyst/white topaz","label":"Black Piano Lacquer Enamel Gold-Plated, Amethyst/White Topaz","pieces":[{"role":"Ring","variant":54126347649365,"price":39500,"title":"Black Piano Lacquer Enamel Gold-Plated Ring, Amethyst/White Topaz","handle":"enamel-gp-ring-amethyst-white-topaz","url":"/products/enamel-gp-ring-amethyst-white-topaz"},{"role":"Earrings","variant":54126347714901,"price":57500,"title":"Black Piano Lacquer Enamel Gold-Plated Earring, Amethyst/White Topaz","handle":"enamel-gp-earring-amethyst-white-topaz","url":"/products/enamel-gp-earring-amethyst-white-topaz"},{"role":"Pendant","variant":54126348403029,"price":95000,"title":"Black Piano Lacquer Enamel Gold-Plated Pendant, Amethyst/White Topaz","handle":"enamel-gp-pendant-amethyst-white-topaz","url":"/products/enamel-gp-pendant-amethyst-white-topaz"}],"set":{"role":"Set","variant":54128247963989,"price":153500,"title":"Black Piano Lacquer Enamel Gold-Plated Set, Amethyst/White Topaz","handle":"enamel-gp-set-amethyst-white-topaz","url":"/products/enamel-gp-set-amethyst-white-topaz","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/6ebddf4ade6d8fc8b0f61fc2b1d649f6_4ca68dab-7a0d-44aa-9ec5-f90b22152e06.jpg?v=1781364802"},"pieceSum":192000,"short":"Black Piano Lacquer Enamel, Amethyst"},{"key":"two stones amethyst/peridot, white topaz 1.20mm","label":"Two Stones Amethyst/Peridot, White Topaz 1.20mm","pieces":[{"role":"Ring","variant":54126343815509,"price":37500,"title":"Two Stones Ring Amethyst/Peridot, White Topaz 1.20mm","handle":"two-stones-ring-peridot-amethyst-white-topaz-1-20mm","url":"/products/two-stones-ring-peridot-amethyst-white-topaz-1-20mm"},{"role":"Earrings","variant":54126345224533,"price":59500,"title":"Two Stones Earring Amethyst/Peridot, White Topaz 1.20mm","handle":"two-stones-earring-peridot-amethyst-white-topaz-1-20mm","url":"/products/two-stones-earring-peridot-amethyst-white-topaz-1-20mm"},{"role":"Bracelet","variant":54126346928469,"price":59500,"title":"Two Stones Bangle Amethyst/Peridot, White Topaz 1.20mm","handle":"two-stones-bangle-peridot-amethyst-white-topaz-1-20mm","url":"/products/two-stones-bangle-peridot-amethyst-white-topaz-1-20mm"}],"set":{"role":"Set","variant":54131584172373,"price":125000,"title":"Two Stones Set Amethyst/Peridot, White Topaz 1.20mm","handle":"two-stones-set-amethyst-peridot-white-topaz-1-20mm","url":"/products/two-stones-set-amethyst-peridot-white-topaz-1-20mm","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/391121953771a0e9dfa6c867712782d9_4fdec94c-f8e3-4716-a786-5b8fd3df15ea.jpg?v=1781377533"},"pieceSum":156500,"short":"Two Stones Amethyst/Peridot"},{"key":"two stones blue topaz/garnet, white topaz 1.20mm","label":"Two Stones Blue Topaz/Garnet, White Topaz 1.20mm","pieces":[{"role":"Ring","variant":54126344208725,"price":47500,"title":"Two Stones Ring Blue Topaz/Garnet, White Topaz 1.20mm","handle":"two-stones-ring-blue-topaz-garnet-white-topaz-1-20mm","url":"/products/two-stones-ring-blue-topaz-garnet-white-topaz-1-20mm"},{"role":"Earrings","variant":54126344831317,"price":82500,"title":"Two Stones Earring Blue Topaz/Garnet, White Topaz 1.20mm","handle":"two-stones-earring-blue-topaz-garnet-white-topaz-1-20mm","url":"/products/two-stones-earring-blue-topaz-garnet-white-topaz-1-20mm"},{"role":"Bracelet","variant":54126346731861,"price":77500,"title":"Two Stones Bangle Blue Topaz/Garnet, White Topaz 1.20mm","handle":"two-stones-bangle-blue-topaz-garnet-white-topaz-1-20mm","url":"/products/two-stones-bangle-blue-topaz-garnet-white-topaz-1-20mm"}],"set":{"role":"Set","variant":54131584205141,"price":166000,"title":"Two Stones Set Blue Topaz/Garnet, White Topaz 1.20mm","handle":"two-stones-set-blue-topaz-garnet-white-topaz-1-20mm","url":"/products/two-stones-set-blue-topaz-garnet-white-topaz-1-20mm","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/06ea1afacdd6a577b68b66f27811492e_d5b68f12-e9b1-4714-a123-316d4fb9849f.jpg?v=1781377547"},"pieceSum":207500,"short":"Two Stones Blue Topaz/Garnet"},{"key":"two stones citrine/garnet, white topaz 1.20mm","label":"Two Stones Citrine/Garnet, White Topaz 1.20mm","pieces":[{"role":"Ring","variant":54126344012117,"price":37500,"title":"Two Stones Ring Citrine/Garnet, White Topaz 1.20mm","handle":"two-stones-ring-citrine-garnet-white-topaz-1-20mm","url":"/products/two-stones-ring-citrine-garnet-white-topaz-1-20mm"},{"role":"Earrings","variant":54126345584981,"price":57500,"title":"Two Stones Earring Citrine/Garnet, White Topaz 1.20mm","handle":"two-stones-earring-citrine-garnet-white-topaz-1-20mm","url":"/products/two-stones-earring-citrine-garnet-white-topaz-1-20mm"},{"role":"Bracelet","variant":54126346535253,"price":57500,"title":"Two Stones Bangle Citrine/Garnet, White Topaz 1.20mm","handle":"two-stones-bangle-citrine-garnet-white-topaz-1-20mm","url":"/products/two-stones-bangle-citrine-garnet-white-topaz-1-20mm"}],"set":{"role":"Set","variant":54131585155413,"price":122000,"title":"Two Stones Set Citrine/Garnet, White Topaz 1.20mm","handle":"two-stones-set-citrine-garnet-white-topaz-1-20mm","url":"/products/two-stones-set-citrine-garnet-white-topaz-1-20mm","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/574a56b07143889b1f63c843ee242ec3.jpg?v=1781377561"},"pieceSum":152500,"short":"Two Stones Citrine/Garnet"},{"key":"two stones amethyst/blue topaz, white topaz 1.20mm","label":"Two Stones Amethyst/Blue Topaz, White Topaz 1.20mm","pieces":[{"role":"Ring","variant":54126343553365,"price":39500,"title":"Two Stones Ring Amethyst/Blue Topaz, White Topaz 1.20mm","handle":"two-stones-ring-blue-topaz-amethyst-white-topaz-1-20mm","url":"/products/two-stones-ring-blue-topaz-amethyst-white-topaz-1-20mm"},{"role":"Earrings","variant":54126345781589,"price":62500,"title":"Two Stones Earring Amethyst/Blue Topaz, White Topaz 1.20mm","handle":"two-stones-earring-amethyst-blue-topaz-white-topaz-1-20mm","url":"/products/two-stones-earring-amethyst-blue-topaz-white-topaz-1-20mm"},{"role":"Bracelet","variant":54126345945429,"price":59500,"title":"Two Stones Bangle Amethyst/Blue Topaz, White Topaz 1.20mm","handle":"two-stones-bangle-amethyst-blue-topaz-white-topaz-1-20mm","url":"/products/two-stones-bangle-amethyst-blue-topaz-white-topaz-1-20mm"}],"set":{"role":"Set","variant":54131585483093,"price":129000,"title":"Two Stones Set Amethyst/Blue Topaz, White Topaz 1.20mm","handle":"two-stones-set-amethyst-blue-topaz-white-topaz-1-20mm","url":"/products/two-stones-set-amethyst-blue-topaz-white-topaz-1-20mm","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/e37d0e5e2041aa6e36231a81d00b04d6.jpg?v=1781377513"},"pieceSum":161500,"short":"Two Stones Amethyst/Blue Topaz"},{"key":"five stones blue topaz 6x4","label":"Five Stones Blue Topaz 6X4","pieces":[{"role":"Ring","variant":54126341914965,"price":37500,"title":"Five Stones Ring Blue Topaz 6X4","handle":"five-stones-ring-blue-topaz-6x4","url":"/products/five-stones-ring-blue-topaz-6x4"},{"role":"Earrings","variant":54126337524053,"price":52500,"title":"Five Stones Earring Blue Topaz 6X4","handle":"five-stones-earring-blue-topaz-6x4","url":"/products/five-stones-earring-blue-topaz-6x4"},{"role":"Bracelet","variant":54126343323989,"price":259000,"title":"Five Stones Bracelet Blue Topaz 6X4","handle":"five-stones-bracelet-blue-topaz-6x4","url":"/products/five-stones-bracelet-blue-topaz-6x4"}],"set":{"role":"Set","variant":54132258406741,"price":279000,"title":"Five Stones Set Blue Topaz 6X4","handle":"five-stones-set-blue-topaz-6x4","url":"/products/five-stones-set-blue-topaz-6x4","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/9db6f856b569dd3f2f2d4a322dd04f5a.jpg?v=1781378395"},"pieceSum":349000,"short":"Five Stones Blue Topaz"},{"key":"five stones peridot 6x4","label":"Five Stones Peridot 6X4","pieces":[{"role":"Ring","variant":54126342078805,"price":32500,"title":"Five Stones Ring Peridot 6X4","handle":"five-stones-ring-peridot-6x4","url":"/products/five-stones-ring-peridot-6x4"},{"role":"Earrings","variant":54126341095765,"price":42500,"title":"Five Stones Earring Peridot 6X4","handle":"five-stones-earring-peridot-6x4","url":"/products/five-stones-earring-peridot-6x4"},{"role":"Bracelet","variant":54126342668629,"price":125000,"title":"Five Stones Bracelet Peridot 6X4","handle":"five-stones-bracelet-peridot-6x4","url":"/products/five-stones-bracelet-peridot-6x4"}],"set":{"role":"Set","variant":54132258373973,"price":160000,"title":"Five Stones Set Peridot 6X4","handle":"five-stones-set-peridot-6x4","url":"/products/five-stones-set-peridot-6x4","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/81cefd740a395bb37b596c4dfd8142fb.jpg?v=1781378392"},"pieceSum":200000,"short":"Five Stones Peridot"},{"key":"five stones citrine 6x4","label":"Five Stones Citrine 6X4","pieces":[{"role":"Ring","variant":54126341685589,"price":29500,"title":"Five Stones Ring Citrine 6X4","handle":"five-stones-ring-citrine-6x4","url":"/products/five-stones-ring-citrine-6x4"},{"role":"Earrings","variant":54126337753429,"price":35000,"title":"Five Stones Earring Citrine 6X4","handle":"five-stones-earring-citrine-6x4","url":"/products/five-stones-earring-citrine-6x4"},{"role":"Bracelet","variant":54126342439253,"price":102500,"title":"Five Stones Bracelet Citrine 6X4","handle":"five-stones-bracelet-citrine-6x4","url":"/products/five-stones-bracelet-citrine-6x4"}],"set":{"role":"Set","variant":54132258242901,"price":133500,"title":"Five Stones Set Citrine 6X4","handle":"five-stones-set-citrine-6x4","url":"/products/five-stones-set-citrine-6x4","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/cbbfd74857397c13f98887c80dd4dd49.jpg?v=1781378386"},"pieceSum":167000,"short":"Five Stones Citrine"},{"key":"five stones garnet 6x4","label":"Five Stones Garnet 6X4","pieces":[{"role":"Ring","variant":54126342308181,"price":29500,"title":"Five Stones Ring Garnet 6X4","handle":"five-stones-ring-garnet-6x4","url":"/products/five-stones-ring-garnet-6x4"},{"role":"Earrings","variant":54126337950037,"price":37500,"title":"Five Stones Earring Garnet 6X4","handle":"five-stones-earring-garnet-6x4","url":"/products/five-stones-earring-garnet-6x4"},{"role":"Bracelet","variant":54126343192917,"price":105000,"title":"Five Stones Bracelet Garnet 6X4","handle":"five-stones-bracelet-garnet-6x4","url":"/products/five-stones-bracelet-garnet-6x4"}],"set":{"role":"Set","variant":54132258275669,"price":137500,"title":"Five Stones Set Garnet 6X4","handle":"five-stones-set-garnet-6x4","url":"/products/five-stones-set-garnet-6x4","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/e448de3f3671b770bbebd8b4b8f6f23d.jpg?v=1781378389"},"pieceSum":172000,"short":"Five Stones Garnet"},{"key":"five stones amethyst 6x4","label":"Five Stones Amethyst 6X4","pieces":[{"role":"Ring","variant":54126341390677,"price":32500,"title":"Five Stones Ring Amethyst 6X4","handle":"five-stones-ring-amethyst-6x4","url":"/products/five-stones-ring-amethyst-6x4"},{"role":"Earrings","variant":54126338113877,"price":39500,"title":"Five Stones Earring Amethyst 6X4","handle":"five-stones-earring-amethyst-6x4","url":"/products/five-stones-earring-amethyst-6x4"},{"role":"Bracelet","variant":54126342832469,"price":119500,"title":"Five Stones Bracelet Amethyst 6X4","handle":"five-stones-bracelet-amethyst-6x4","url":"/products/five-stones-bracelet-amethyst-6x4"}],"set":{"role":"Set","variant":54132258210133,"price":153000,"title":"Five Stones Set Amethyst 6X4","handle":"five-stones-set-amethyst-6x4","url":"/products/five-stones-set-amethyst-6x4","image":"https://cdn.shopify.com/s/files/1/0286/2864/8020/files/7829356b7f1ef144a2949b920f8cf615.jpg?v=1781378382"},"pieceSum":191500,"short":"Five Stones Amethyst"}],"variantIndex":{"54128248062293":{"f":"pearl white enamel gold-plated, citrine/white topaz","role":"Set"},"54126347059541":{"f":"pearl white enamel gold-plated, citrine/white topaz","role":"Ring"},"54126347092309":{"f":"pearl white enamel gold-plated, citrine/white topaz","role":"Earrings"},"54126347157845":{"f":"pearl white enamel gold-plated, citrine/white topaz","role":"Pendant"},"54128248095061":{"f":"pearl white enamel gold-plated, garnet/white topaz","role":"Set"},"54126347452757":{"f":"pearl white enamel gold-plated, garnet/white topaz","role":"Ring"},"54126347485525":{"f":"pearl white enamel gold-plated, garnet/white topaz","role":"Earrings"},"54126347518293":{"f":"pearl white enamel gold-plated, garnet/white topaz","role":"Pendant"},"54128247963989":{"f":"black piano lacquer enamel gold-plated, amethyst/white topaz","role":"Set"},"54126347649365":{"f":"black piano lacquer enamel gold-plated, amethyst/white topaz","role":"Ring"},"54126347714901":{"f":"black piano lacquer enamel gold-plated, amethyst/white topaz","role":"Earrings"},"54126348403029":{"f":"black piano lacquer enamel gold-plated, amethyst/white topaz","role":"Pendant"},"54131584172373":{"f":"two stones amethyst/peridot, white topaz 1.20mm","role":"Set"},"54126343815509":{"f":"two stones amethyst/peridot, white topaz 1.20mm","role":"Ring"},"54126345224533":{"f":"two stones amethyst/peridot, white topaz 1.20mm","role":"Earrings"},"54126346928469":{"f":"two stones amethyst/peridot, white topaz 1.20mm","role":"Bracelet"},"54131584205141":{"f":"two stones blue topaz/garnet, white topaz 1.20mm","role":"Set"},"54126344208725":{"f":"two stones blue topaz/garnet, white topaz 1.20mm","role":"Ring"},"54126344831317":{"f":"two stones blue topaz/garnet, white topaz 1.20mm","role":"Earrings"},"54126346731861":{"f":"two stones blue topaz/garnet, white topaz 1.20mm","role":"Bracelet"},"54131585155413":{"f":"two stones citrine/garnet, white topaz 1.20mm","role":"Set"},"54126344012117":{"f":"two stones citrine/garnet, white topaz 1.20mm","role":"Ring"},"54126345584981":{"f":"two stones citrine/garnet, white topaz 1.20mm","role":"Earrings"},"54126346535253":{"f":"two stones citrine/garnet, white topaz 1.20mm","role":"Bracelet"},"54131585483093":{"f":"two stones amethyst/blue topaz, white topaz 1.20mm","role":"Set"},"54126343553365":{"f":"two stones amethyst/blue topaz, white topaz 1.20mm","role":"Ring"},"54126345781589":{"f":"two stones amethyst/blue topaz, white topaz 1.20mm","role":"Earrings"},"54126345945429":{"f":"two stones amethyst/blue topaz, white topaz 1.20mm","role":"Bracelet"},"54132258406741":{"f":"five stones blue topaz 6x4","role":"Set"},"54126341914965":{"f":"five stones blue topaz 6x4","role":"Ring"},"54126337524053":{"f":"five stones blue topaz 6x4","role":"Earrings"},"54126343323989":{"f":"five stones blue topaz 6x4","role":"Bracelet"},"54132258373973":{"f":"five stones peridot 6x4","role":"Set"},"54126342078805":{"f":"five stones peridot 6x4","role":"Ring"},"54126341095765":{"f":"five stones peridot 6x4","role":"Earrings"},"54126342668629":{"f":"five stones peridot 6x4","role":"Bracelet"},"54132258242901":{"f":"five stones citrine 6x4","role":"Set"},"54126341685589":{"f":"five stones citrine 6x4","role":"Ring"},"54126337753429":{"f":"five stones citrine 6x4","role":"Earrings"},"54126342439253":{"f":"five stones citrine 6x4","role":"Bracelet"},"54132258275669":{"f":"five stones garnet 6x4","role":"Set"},"54126342308181":{"f":"five stones garnet 6x4","role":"Ring"},"54126337950037":{"f":"five stones garnet 6x4","role":"Earrings"},"54126343192917":{"f":"five stones garnet 6x4","role":"Bracelet"},"54132258210133":{"f":"five stones amethyst 6x4","role":"Set"},"54126341390677":{"f":"five stones amethyst 6x4","role":"Ring"},"54126338113877":{"f":"five stones amethyst 6x4","role":"Earrings"},"54126342832469":{"f":"five stones amethyst 6x4","role":"Bracelet"}}};
+  var IDX = CFG.variantIndex, FAMS = {};
+  CFG.families.forEach(function(f){ FAMS[f.key] = f; });
+
+  function root(){
+    if (window.Shopify && Shopify.routes && Shopify.routes.root) return Shopify.routes.root;
+    var m = location.pathname.match(/^\/[a-z]{2}(?:-[a-z]{2})?\//i);
+    return m ? m[0] : '/';
+  }
+  function money(cents){ return '€' + Math.round(cents/100).toLocaleString('de-DE'); }
+  function esc(s){ var d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; }
+  function roleLabel(r){ return r==='Earrings'?'Earrings':r; }
+
+  // Build nudge cards from current cart line items.
+  function cardsFor(items){
+    var byFam = {};
+    items.forEach(function(li){
+      var hit = IDX[String(li.variant_id)];
+      if (!hit) return;
+      byFam[hit.f] = byFam[hit.f] || {roles:{}, hasSet:false};
+      if (hit.role==='Set') byFam[hit.f].hasSet = true;
+      else byFam[hit.f].roles[hit.role] = true;
+    });
+
+    var out = [];
+    Object.keys(byFam).forEach(function(key){
+      var st = byFam[key], f = FAMS[key];
+      if (!f || st.hasSet) return;
+      var presentPieces = f.pieces.filter(function(p){ return st.roles[p.role]; });
+      if (presentPieces.length < 2) return;
+      var missing = f.pieces.filter(function(p){ return !st.roles[p.role]; });
+      var save = f.pieceSum - f.set.price;
+      if (save <= 0) return;
+      out.push({ f:f, presentPieces:presentPieces, missing:missing, save:save });
+    });
+    // best savings first; cap to 2 cards to avoid clutter
+    out.sort(function(a,b){ return b.save - a.save; });
+    return out.slice(0,2);
+  }
+
+  function cardHtml(c){
+    var f=c.f, full = c.missing.length===0;
+    var title, text;
+    if (full){
+      title = 'You have the full ' + esc(f.short) + ' set';
+      text  = 'Swap your three pieces for the <b>' + esc(f.short) +
+              ' Set</b> and pay ' + money(f.set.price) +
+              ' — <span class="SetNudge__Save">save ' + money(c.save) + '</span>.';
+    } else {
+      var miss = c.missing.map(function(p){ return roleLabel(p.role); }).join(' & ');
+      title = "You're one piece from the " + esc(f.short) + ' set';
+      text  = 'Add the <b>' + esc(miss) + '</b> as part of the <b>' + esc(f.short) +
+              ' Set</b>: ' + money(f.set.price) + ' for all three (' + money(f.pieceSum) +
+              ' separately, <span class="SetNudge__Save">save ' + money(c.save) + '</span>).';
+    }
+    var remove = c.presentPieces.map(function(p){ return p.variant; }).join(',');
+    var img = f.set.image ? '<img class="SetNudge__Thumb" src="' + esc(f.set.image) +
+              '&width=120" alt="" loading="lazy">' : '';
+    return '<div class="SetNudge__Card">' + img +
+      '<div class="SetNudge__Body">' +
+        '<p class="SetNudge__Title">' + title + '</p>' +
+        '<p class="SetNudge__Text">' + text + '</p>' +
+        '<button type="button" class="SetNudge__Btn" data-nudge-to-set ' +
+          'data-set-variant="' + f.set.variant + '" data-remove="' + remove + '">' +
+          (full ? 'Switch to the Set' : 'Complete the Set') + ' →</button>' +
+      '</div></div>';
+  }
+
+  function paint(items){
+    var hosts = document.querySelectorAll('[data-set-nudge]');
+    if (!hosts.length) return;
+    var cards = cardsFor(items||[]);
+    var html = cards.map(cardHtml).join('');
+    hosts.forEach(function(h){ h.innerHTML = html; });
+  }
+
+  var t=null;
+  function render(){
+    if (!document.querySelector('[data-set-nudge]')) return;
+    clearTimeout(t);
+    t = setTimeout(function(){
+      fetch(root()+'cart.js', {headers:{'Accept':'application/json'}, credentials:'same-origin'})
+        .then(function(r){ return r.json(); })
+        .then(function(c){ paint(c.items||[]); })
+        .catch(function(){});
+    }, 60);
+  }
+
+  // ── Swap pieces -> Set ─────────────────────────────────────────────────────
+  // 1) /cart/update.js zeros the loose pieces and adds the Set in one atomic call
+  //    (verified: update.js adds a variant that isn't yet in the cart).
+  // 2) Re-render the visible cart with a GET /cart?view=... and DOM replacement —
+  //    the SAME proven path snippets/cart-items.liquid uses (update.js does not
+  //    reliably return the `sections` payload, so we don't depend on it).
+  function refreshCartUI(data){
+    var isDrawer = !!document.getElementById('sidebar-cart');
+    var view = isDrawer ? 'drawer' : 'ajax';
+    return fetch(root()+'cart?view='+view+'&timestamp='+Date.now(), {
+      method:'GET', credentials:'same-origin', headers:{'X-Requested-With':'XMLHttpRequest'}
+    })
+    .then(function(r){ return r.text(); })
+    .then(function(h){
+      var tmp=document.createElement('div'); tmp.innerHTML=h;
+      var current = document.getElementById('sidebar-cart') || document.querySelector('[data-section-type="cart"]');
+      var fresh   = tmp.querySelector('#sidebar-cart') || tmp.querySelector('[data-section-type="cart"]');
+      if (current && fresh && current.id === 'sidebar-cart'){
+        var cM=current.querySelector('.Drawer__Main'),  fM=fresh.querySelector('.Drawer__Main');
+        var cF=current.querySelector('.Drawer__Footer'), fF=fresh.querySelector('.Drawer__Footer');
+        if (cM && fM) cM.replaceWith(fM);
+        if (cF && fF) cF.replaceWith(fF);
+        else if (cF) cF.remove();
+        else if (fF){ var form=current.querySelector('form.Cart'); if (form) form.appendChild(fF); }
+      } else if (current && fresh){
+        current.replaceWith(fresh);
+      }
+      document.querySelectorAll('.Header__CartCount').forEach(function(el){ el.textContent=data.item_count; });
+      document.querySelectorAll('.Header__CartDot').forEach(function(el){ el.classList.toggle('is-visible', data.item_count>0); });
+      window.dispatchEvent(new CustomEvent('cart:updated',{detail:data}));   // local-store sync + recompute
+      window.dispatchEvent(new CustomEvent('adl:cart:rendered'));
+    });
+  }
+
+  function swap(btn){
+    var setV = parseInt(btn.getAttribute('data-set-variant'),10);
+    var remove = (btn.getAttribute('data-remove')||'').split(',').filter(Boolean);
+    var updates = {}; remove.forEach(function(v){ updates[v]=0; }); updates[setV]=1;
+    btn.disabled = true;
+    var oldErr = btn.parentElement.querySelector('.SetNudge__Err'); if (oldErr) oldErr.remove();
+
+    fetch(root()+'cart/update.js', {
+      method:'POST', credentials:'same-origin',
+      headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body: JSON.stringify({ updates:updates })
+    })
+    .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
+    .then(function(res){
+      if (!res.ok) throw new Error((res.d&&(res.d.description||res.d.message))||'Error');
+      return refreshCartUI(res.d);
+    })
+    .catch(function(e){
+      btn.disabled=false;
+      var p=document.createElement('p'); p.className='SetNudge__Err';
+      p.textContent = (e&&e.message) ? e.message : 'Could not update the cart. Please try again.';
+      btn.insertAdjacentElement('afterend', p);
+    });
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('[data-nudge-to-set]');
+    if (!btn) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    swap(btn);
+  }, true);
+
+  window.addEventListener('cart:updated', render);
+  window.addEventListener('adl:cart:rendered', render);
+  if (document.readyState!=='loading') render();
+  else document.addEventListener('DOMContentLoaded', render);
+})();
+</script>
