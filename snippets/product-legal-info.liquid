@@ -1,12 +1,22 @@
 {%- comment -%}
   product-legal-info.liquid — compliance block shown on every product page.
-  Covers: GPSR (Reg. (EU) 2023/988) manufacturer / EU responsible person + safety info;
-  FTC Jewelry Guides gemstone-treatment disclosure; care instructions.
-  Rendered from sections/product-template.liquid after the description.
+  Covers: GPSR (Reg. (EU) 2023/988) manufacturer / EU responsible person + product
+  identifier + safety info; FTC Jewelry Guides gemstone-treatment disclosure
+  (general + per-stone for treated stones); care instructions.
+  Rendered from sections/product-template.liquid and product-template-2.liquid.
 {%- endcomment -%}
+{%- assign adl_t = product.title | downcase -%}
+{%- assign adl_tags = product.tags | join: ' ' | downcase -%}
+{%- assign adl_sku = product.selected_or_first_available_variant.sku -%}
 <div class="ProductLegal Text--subdued" style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border-color,#e3ddd4);font-size:12px;line-height:1.5">
-  <p style="margin:0 0 6px"><strong>Materials.</strong> Handmade 925 sterling silver (gold-plated where indicated) set with genuine natural gemstones. As is standard in the trade, some natural stones are routinely treated &mdash; for example by heat or irradiation &mdash; to enhance their colour or clarity; such treatment is stable under normal wear. No synthetic or imitation stones.</p>
+  <p style="margin:0 0 6px"><strong>Materials.</strong> Handmade 925 sterling silver (with a gold-coloured surface coating where indicated) set with genuine natural gemstones. No synthetic or imitation stones. As is standard in the gem trade, some natural stones are routinely treated &mdash; for example by heat or irradiation &mdash; to enhance or stabilise colour; such treatment is permanent and stable under normal wear.</p>
+  {%- if adl_t contains 'blue topaz' or adl_tags contains 'blue topaz' -%}
+  <p style="margin:0 0 6px"><strong>Gemstone treatment.</strong> Blue topaz &mdash; irradiated and heat treated. Permanent and stable under normal conditions of wear; no special care required.</p>
+  {%- elsif adl_t contains 'citrine' or adl_tags contains 'citrine' -%}
+  <p style="margin:0 0 6px"><strong>Gemstone treatment.</strong> Citrine &mdash; heat treated. Permanent and stable under normal conditions of wear; no special care required.</p>
+  {%- endif -%}
   <p style="margin:0 0 6px"><strong>Care.</strong> Keep away from water, perfume and chemicals. Store dry and separately. Polish gently with a soft cloth; clean natural stones by hand only.</p>
-  <p style="margin:0 0 6px"><strong>Safety.</strong> Contains small parts &mdash; keep away from children under 3 (choking hazard).</p>
-  <p style="margin:0"><strong>Manufacturer / EU responsible person:</strong> Adelina Amlinskaya (trading as Adelina World), Frazione Taena 5, 52010 Chitignano (AR), Italy &middot; <a href="mailto:orders@adelina.world">orders@adelina.world</a></p>
+  <p style="margin:0 0 6px"><strong>Safety.</strong> Contains small parts &mdash; keep away from children under 3 (choking hazard). Not suitable as a toy.</p>
+  <p style="margin:0 0 6px"><strong>Product reference:</strong> {% if adl_sku != blank %}{{ adl_sku }}{% else %}AW-{{ product.id }}{% endif %}</p>
+  <p style="margin:0"><strong>Manufacturer / EU responsible person:</strong> Adelina Amlinskaya (trading as Adelina World), Frazione Taena 5, 52010 Chitignano (AR), Italy &middot; <a href="mailto:orders@adelina.world">orders@adelina.world</a> &middot; +39 346 527 8354</p>
 </div>
