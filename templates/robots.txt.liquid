@@ -1,0 +1,162 @@
+# Shopify storefront. Public product, collection, page, blog, policy, cart, and localized HTML is crawlable.
+# Agent instructions: https://www.adelina.world/agents.md
+# LLM information: {{ 'llms.txt' | asset_url }}
+# UCP discovery: https://www.adelina.world/.well-known/ucp
+# UCP/MCP endpoint: https://www.adelina.world/api/ucp/mcp
+# Agents should use UCP/MCP for catalog, cart, and checkout. Payment requires buyer approval.
+#
+# Checkouts are for humans. Do NOT complete checkout, payment, or order placement automatically - no scripted
+# form fills, browser automation, or end-to-end agent flows that finalize payment without an explicit,
+# contemporaneous human approval step. Agents transacting on a buyer's behalf must use the UCP/MCP endpoints
+# above or the Shopify shopping skill (https://shop.app/SKILL.md); both require buyer approval before payment.
+# Terms of Service: https://www.shopify.com/legal/terms
+# Contact: bots@shopify.com
+
+User-agent: *
+Allow: /
+Allow: /products/
+Allow: /*/products/
+Allow: /collections/
+Allow: /*/collections/
+Allow: /pages/
+Allow: /*/pages/
+Allow: /blogs/
+Allow: /*/blogs/
+Allow: /products/account
+Allow: /products/orders
+Allow: /products/checkout
+Allow: /*/products/account
+Allow: /*/products/orders
+Allow: /*/products/checkout
+Allow: /collections/account
+Allow: /collections/orders
+Allow: /collections/checkout
+Allow: /*/collections/account
+Allow: /*/collections/orders
+Allow: /*/collections/checkout
+Allow: /pages/checkout
+Allow: /*/pages/checkout
+Allow: /blogs/*account
+Allow: /blogs/*orders
+Allow: /blogs/*checkout
+Allow: /*/blogs/*account
+Allow: /*/blogs/*orders
+Allow: /*/blogs/*checkout
+
+# Private / transactional
+Disallow: /admin
+Disallow: /cart/
+Disallow: /*/cart/
+Disallow: /checkout
+Disallow: /*/checkout
+Disallow: /checkouts/
+Disallow: /*/checkouts/
+Disallow: /orders
+Disallow: /*/orders
+Allow: /account/login
+Allow: /*/account/login
+Disallow: /account
+Disallow: /*/account
+Disallow: /28628648020
+Disallow: /cdn/wpm/*.js
+
+# Shopify-internal endpoints not meant for crawlers
+Disallow: /services
+Disallow: /sf_*
+
+# AJAX surfaces: agents should use UCP/MCP instead
+Disallow: /cart.js
+Disallow: /*/cart.js
+Disallow: /recommendations/products
+Disallow: /*/recommendations/products
+
+# Filters, sort, previews, language-picker crawl traps
+Disallow: /collections/*sort_by*
+Disallow: /*/collections/*sort_by*
+Disallow: /collections/*+*
+Disallow: /collections/*%2B*
+Disallow: /collections/*%2b*
+Disallow: /*/collections/*+*
+Disallow: /*/collections/*%2B*
+Disallow: /*/collections/*%2b*
+Disallow: /collections/*filter*&*filter*
+Disallow: /*/collections/*filter*&*filter*
+Disallow: /blogs/*+*
+Disallow: /blogs/*%2B*
+Disallow: /blogs/*%2b*
+Disallow: /*/blogs/*+*
+Disallow: /*/blogs/*%2B*
+Disallow: /*/blogs/*%2b*
+Disallow: /*?*ls=*&ls=*
+Disallow: /*?*ls%3*ls%3*
+Disallow: /*?*oseid=*
+Disallow: /*?*preview_theme_id=*
+Disallow: /*?*preview_script_id=*
+
+# AI search and assistant crawlers are explicitly allowed to crawl public editorial and catalog pages.
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Amazonbot
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /products/
+Allow: /*/products/
+Allow: /collections/
+Allow: /*/collections/
+Allow: /pages/
+Allow: /*/pages/
+Allow: /blogs/
+Allow: /*/blogs/
+Disallow: /admin
+Disallow: /cart/
+Disallow: /*/cart/
+Disallow: /checkout
+Disallow: /*/checkout
+Disallow: /checkouts/
+Disallow: /*/checkouts/
+Disallow: /orders
+Disallow: /*/orders
+Disallow: /account
+Disallow: /*/account
+Allow: /account/login
+Allow: /*/account/login
+Disallow: /services
+Disallow: /sf_*
+Disallow: /cart.js
+Disallow: /*/cart.js
+Disallow: /recommendations/products
+Disallow: /*/recommendations/products
+Disallow: /*?*preview_theme_id=*
+Disallow: /*?*preview_script_id=*
+
+# Google adsbot ignores robots.txt unless specifically named, some rules must be repeated.
+User-agent: adsbot-google
+Allow: /products/
+Allow: /*/products/
+Allow: /collections/
+Allow: /*/collections/
+Allow: /pages/
+Allow: /*/pages/
+Allow: /blogs/
+Allow: /*/blogs/
+Allow: /pages/checkout
+Allow: /*/pages/checkout
+Allow: /blogs/*checkout
+Allow: /*/blogs/*checkout
+Disallow: /checkout
+Disallow: /*/checkout
+Disallow: /checkouts/
+Disallow: /*/checkouts/
+Disallow: /orders
+Disallow: /*/orders
+Disallow: /services
+Disallow: /sf_*
+Disallow: /28628648020
+Disallow: /cdn/wpm/*.js
+
+Sitemap: https://www.adelina.world/sitemap.xml
