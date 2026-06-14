@@ -17,13 +17,14 @@
   {%- assign rv_avg   = 0 -%}
 {%- endif -%}
 
-{%- comment -%} Aggregate rating near product title (schema.org + visual) {%- endcomment -%}
+{%- comment -%}
+  Aggregate rating near product title (visual only).
+  Microdata itemprops removed 2026-06-12: the product page already emits
+  aggregateRating via JSON-LD (booster-seo.liquid) — a second, orphaned
+  microdata block only added noise in Google's Rich Results Test.
+{%- endcomment -%}
 {%- if rv_count > 0 -%}
-<div class="rv-inline-rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-  <meta itemprop="ratingValue"  content="{{ rv_avg }}">
-  <meta itemprop="reviewCount"  content="{{ rv_count }}">
-  <meta itemprop="bestRating"   content="5">
-  <meta itemprop="worstRating"  content="1">
+<div class="rv-inline-rating">
   <span class="rv-inline-stars">
     {%- for i in (1..5) -%}
       {%- if i <= rv_avg -%}<i class="rv-star rv-star--full">★</i>

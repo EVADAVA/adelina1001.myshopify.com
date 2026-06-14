@@ -123,6 +123,13 @@
       <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
     </svg>
 
+  {%- when 'spinner' -%}
+    <svg class="{{ icon_class }}" role="presentation" viewBox="0 0 32 32">
+      <path fill="currentColor" d="M16 2a14 14 0 1 0 14 14h-3a11 11 0 1 1-11-11V2z">
+        <animateTransform attributeName="transform" type="rotate" from="0 16 16" to="360 16 16" dur="0.8s" repeatCount="indefinite"/>
+      </path>
+    </svg>
+
   {%- when 'plus' -%}
     <svg class="{{ icon_class }}" role="presentation" viewBox="0 0 16 16">
       <g stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="square">
