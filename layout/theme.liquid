@@ -33,7 +33,9 @@
     "@id":"{{ shop.url }}/#organization",
     "name":{{ shop.name | json }},
     "url":"{{ shop.url }}",
+    "description":"Italian handmade natural gemstone jewelry in 925 sterling silver by Adelina Amlinskaya.",
     "foundingDate":"2024",
+    "keywords":"handmade jewelry, natural gemstone jewelry, sterling silver jewelry, gemstone rings, earrings, pendants, bracelets, jewelry sets",
     "founder":{"@id":"{{ shop.url }}/#person-adelina"},
     "logo":{"@type":"ImageObject","url":"https://www.adelina.world/cdn/shop/files/b219ee563c0008abaedac45565d87551_400x.png?v=1614335713","width":400,"height":104},
     "address":{"@type":"PostalAddress","streetAddress":"Frazione Taena N 5","addressLocality":"Chitignano","addressRegion":"AR","postalCode":"52010","addressCountry":"IT"},
@@ -57,6 +59,7 @@
     <meta name="theme-color" content="{{ settings.accent_color }}">
 
     <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="alternate" type="text/plain" title="LLM information for {{ shop.name | escape }}" href="{{ 'llms.txt' | asset_url }}">
 
     {%- comment -%} noindex for utility/duplicate pages that should not be indexed {%- endcomment -%}
     {%- if request.page_type == 'page' and page.handle == 'rapid-search-results'
