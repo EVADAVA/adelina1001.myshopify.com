@@ -68,7 +68,7 @@
     {%- comment -%}
       Performance: preconnect to critical origins.
       static.klaviyo.com / www.klaviyo.com removed 2026-06-12 — nothing loads from those domains
-      (no Klaviyo embed JS in the theme). The footer newsletter posts to manage.kmail-lists.com.
+      (no Klaviyo embed JS in the theme). The footer newsletter now posts NATIVELY to Shopify (accepts-marketing); Klaviyo AJAX removed 2026-06-14.
     {%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://manage.kmail-lists.com">
@@ -293,45 +293,11 @@
 
       {% section 'footer' %}
 
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          // ── Klaviyo footer newsletter — direct AJAX subscribe ─────────────────
-          var newsletterForm = document.getElementById('footer-newsletter');
-          if (newsletterForm) {
-            newsletterForm.addEventListener('submit', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              var emailInput = this.querySelector('input[type="email"]');
-              var email = emailInput ? emailInput.value.trim() : '';
-              if (!email) return;
-              var btn = this.querySelector('button[type="submit"]');
-              if (btn) btn.disabled = true;
-              var body = 'g=X7T7ta&email=' + encodeURIComponent(email) + '&$source=Footer+Form';
-              fetch('https://manage.kmail-lists.com/ajax/subscriptions/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: body
-              })
-              .then(function(r) { return r.json(); })
-              .then(function(data) {
-                if (data.success || data.data) {
-                  newsletterForm.style.display = 'none';
-                  var thanks = document.createElement('p');
-                  thanks.style.cssText = 'padding:12px 0;font-size:14px;color:#1a1a1a;';
-                  thanks.textContent = newsletterForm.closest('[lang]') && document.documentElement.lang.startsWith('it')
-                    ? 'Grazie! Ti abbiamo aggiunto alla nostra lista.'
-                    : 'Thank you! You\'ve been added to our list.';
-                  newsletterForm.parentNode.insertBefore(thanks, newsletterForm.nextSibling);
-                } else {
-                  if (btn) btn.disabled = false;
-                }
-              })
-              .catch(function() { if (btn) btn.disabled = false; });
-            });
-          }
-          // ── / Klaviyo ─────────────────────────────────────────────────────────
-        }); // end DOMContentLoaded
-      </script>
+      {%- comment -%}
+        Klaviyo footer-newsletter AJAX hijack REMOVED 2026-06-14 to consolidate on Shopify Email.
+        Footer form is native {% form 'customer' %} -> posts to Shopify accepts-marketing list ->
+        triggers Shopify Messaging welcome series. Klaviyo list X7T7ta no longer fed. Reversible via git.
+      {%- endcomment -%}
 
     </div>
 
