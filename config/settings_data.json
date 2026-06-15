@@ -37,7 +37,6 @@
     "base_text_font_size": 14,
     "currency_conversion_enabled": false,
     "currency_conversion_round_amounts": true,
-    "accent_color": "#1c1b1b",
     "currency_conversion_supported_currencies": "EUR USD CAD GBP RUB INR",
     "currency_conversion_money_format": "money_with_currency_format",
     "show_page_transition": true,
@@ -67,6 +66,7 @@
     "social_snapchat": "",
     "social_fancy": "",
     "favicon": "shopify://shop_images/Logo_ADELINA1001_copy_2.png",
+    "accent_color": "#1c1b1b",
     "checkout_header_image": "",
     "checkout_logo_image": "shopify://shop_images/b219ee563c0008abaedac45565d87551.png",
     "checkout_logo_position": "center",
@@ -832,6 +832,13 @@
       "1585006685353",
       "1661700317c9aa06d5",
       "16462344080c855b44"
-    ]
+    ],
+    "blocks": {
+      "13768625480086291342": {
+        "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   }
 }
